@@ -1,0 +1,69 @@
+name: MajekHomes
+version: ${project.version}
+main: dev.majek.homes.Homes
+api-version: 1.13
+authors: [ Majekdor ]
+description: Customizable homes plugin with a myriad of useful features.
+website: https://majek.dev
+commands:
+  majekhomes:
+    description: MajekHomes' main (help) command.
+    aliases: [mh]
+  home:
+    description: Go to a home.
+    aliases: [h]
+  sethome:
+    description: Sets a home at your current location.
+    aliases: [newhome]
+  delhome:
+    description: Deletes one of your homes.
+    aliases: [removehome]
+  movehome:
+    description: Move a specified home to your current location.
+  homes:
+    description: List all of your homes.
+  undodelhome:
+    description: Undo your most recent home deletion.
+permissions:
+  majekhomes.sethome:
+    description: Allows players to set a home.
+    default: true
+  majekhomes.home:
+    description: Allows players to go to a home.
+    default: true
+  majekhomes.homes:
+    description: Allows players to view a list of their homes
+    default: true
+  majekhomes.delhome:
+    description: Allows players to delete a home.
+    default: true
+  majekhomes.undodelhome:
+    description: Allows players to undo their most recent home deletion.
+    default: true
+  majekhomes.movehome:
+    description: Allows players to move a home.
+    default: true
+  majekhomes.nether:
+    description: Allows players to sethomes in the nether dimension.
+    default: true
+  majekhomes.end:
+    description: Allows players to set homes in the end dimension.
+    default: true
+  majekhomes.delhome.other:
+    description: Allows players to delete another player's home.
+    default: op
+  majekhomes.home.other:
+    description: Allows players to travel to another player's home.
+    default: op
+  majekhomes.homes.other:
+    description: Allows players to view other player's homes.
+    default: op
+  majekhomes.reload:
+    description: Allows players to reload the plugin.
+    default: op
+  majekhomes.sethome.unlimited:
+    description: Allows players to set unlimited homes.
+    default: op
+  majekhomes.delay.bypass:
+    description: Allows players to bypass the teleport delay.
+    default: op

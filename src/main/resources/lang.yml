@@ -1,0 +1,71 @@
+# MajekHomes by Majekdor. Need help? Ask here: https://discord.majek.dev
+# Message configuration - use standard minecraft codes (ex. &a) and hex codes (ex. &#rrggbb)
+prefix: '&3&lHomes&7:'
+command:
+  noPermission: '&cYou do not have permission to do that!'
+  reloaded: '&aMajekHomes reloaded successfully!'
+  invalidSender: '&cYou must be in-game to use this command.'
+  unknownPlayer: '&7Unknown player &b%player%&7.'
+  sethome:
+    usage: '&7Usage: &b/sethome &6<&bname&6>'
+    createdHome: '&7Set a home with name &b%name%&7 at your current location.'
+    noMoreHomes: '&7You cannot set any more homes! Use &b/delhome &6<&bname&6> &7to remove a home. (Limit: &b%limit%&7)'
+    nameAlreadyExists: '&7You already have a home with the name &b%name%&7! Try again with a different name.'
+    nonAlphanumeric: '&7Your home name must be alphanumeric! Please choose a different name.'
+  home:
+    usage: '&7Usage: &b/home &6[&bname&6]'
+    noHomes: '&7You do not have any homes set! Set one with &b/sethome &6<&bname&6>'
+    invalidHome: '&7You do not have a home named &b%name%&7. Type &b/homes&7 to see your homes.'
+    teleportedHome: '&7Teleported to home &b%name%&7.'
+    teleportedOther: '&7Teleported to home &b%name%&7 belonging to &b%player%&7.'
+    invalidHomeOther: '&b%player%&7 does not have a home named &b%name%&7. Type &b/homes &6<&bplayer&6>&7 to see their homes.'
+    warmup: '&7Teleporting in &b%time% &7seconds. Do not move...'
+    teleportationCancelled: '&7You moved! Teleportation canceled.'
+  homes:
+    usage: '&7Usage: &b/homes &6[&bplayer&6]'
+    headerYours: '&bYour Homes'
+    headerOthers: '&7Homes belonging to &b%player%'
+    page: 'Page'
+    prev: 'Prev'
+    previousPage: '&bClick to view the previous page'
+    noPreviousPage: '&7No previous page'
+    next: 'Next'
+    nextPage: '&bClick to view the next page'
+    noNextPage: '&7No next page'
+    clickToTravel: '&bClick to teleport home'
+    invalidPage: '&7Invalid page number. Must be between 1 and %max%.'
+    noHomes: '&7You do not have any homes set! Set one with &b/sethome &6<&bname&6>'
+    noHomesOther: '&b%player%&7 does not have any homes set.'
+  delhome:
+    usage: '&7Usage: &b/delhome &6[&bplayer&6] <&bname&6>'
+    invalidHome: '&7You do not have a home named &b%name%&7! Type &b/homes&7 to see your homes.'
+    invalidHomeOther: '&b%player%&7 does not have a home named &b%name%&7! Type &b/homes &6<&bname&6>&7 to see their homes.'
+    deleted: '&7Your home &b%name% &7was deleted.'
+    deletedOther: '&7Home &b%name% &7belonging to &b%player%&7 was deleted.'
+  movehome:
+    usage: '&7Usage: &b/movehome &6[&bname&6]'
+    invalidHome: '&7You do not have a home named &b%name%&7! Type &b/homes&7 to see your homes.'
+    homeMoved: '&7Home &b%name%&7 moved to your current location.'
+  undodelhome:
+    usage: '&7Usage: &b/undodelhome'
+    noHome: '&7There is no recently deleted home stored in memory.'
+    recoveredHome: '&7Home &b%name%&7 was recovered!'
+  help:
+    version:
+      - '&7&l---------------------------------'
+      - '                  &9Majek&bHomes'
+      - '            &7Created by: &bMajekdor'
+      - '                &7Version: &b%version%'
+      - '   &7Use /majekhomes help to get started'
+      - '&7&l---------------------------------'
+    # If you're confused about the custom formatting join https://discord.majek.dev (documentation coming)
+    help:
+      - '&7&l------------------&9&lMajek&b&lHomes&7&l------------------'
+      - '&7· ${hover,&bHome,&7Usage: &b/home &6[&bname&6]}&f: &7Go to a home.'
+      - '&7· ${hover,&bHomes,&7Usage: &b/homes &6[&bplayer&6]}&f: &7List all of your homes.'
+      - '&7· ${hover,&bSetHome,&7Usage: &b/sethome &6<&bname&6>}&f: &7Set a home at your current location.'
+      - '&7· ${hover,&bDelHome,&7Usage: &b/delhome &6[&bplayer&6] <&bname&6>}&f: &7Delete one of your homes.'
+      - '&7· ${hover,&bMoveHome,&7Usage: &b/movehome &6[&bname&6]}&f: &7Move an existing home to your current location.'
+      - '&7· ${hover,&bUndoDelHome,&7Usage: &b/undodelhome}&f: &7Undo your most recent home deletion.'
+      - '&7· ${hover,&bMajekHomes,&7Usage: &b/majekhomes &6[&bhelp&7|&breload&6]}&f: &7Main plugin command.'
+      - '&7&l----------------------------------------------'
