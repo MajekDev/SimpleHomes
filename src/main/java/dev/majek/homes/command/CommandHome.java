@@ -1,8 +1,10 @@
 package dev.majek.homes.command;
 
 import dev.majek.homes.Homes;
+import dev.majek.homes.data.struct.Bar;
 import dev.majek.homes.data.struct.Home;
 import dev.majek.homes.data.struct.HomesPlayer;
+import dev.majek.homes.util.Chat;
 import dev.majek.homes.util.TabCompleterBase;
 import dev.majek.homes.util.TabExecutor;
 import org.bukkit.command.Command;
@@ -41,6 +43,12 @@ public class CommandHome implements TabExecutor {
                 return true;
             }
 
+            // Check if the player just ran the command
+            if (homesPlayer.cannotMove()) {
+                sendMessage(player, "command.home.wait");
+                return true;
+            }
+
             // Check if the player has no homes
             if (homesPlayer.getTotalHomes() == 0) {
                 sendMessage(player, "command.home.noHomes");
@@ -61,15 +69,29 @@ public class CommandHome implements TabExecutor {
                 sendMessageWithReplacement(player, "command.home.teleportedHome", "%name%", homeName);
             } else {
                 sendMessageWithReplacement(player, "command.home.warmup", "%time%", String.valueOf(tpDelay));
+
+                // Boss bar shizzle
+                Bar bar = new Bar(Homes.getCore());
+                if (Homes.getCore().getConfig().getBoolean("use-boss-bar")) {
+                    homesPlayer.setBossBar(bar);
+                    bar.createBar(tpDelay, Chat.applyColorCodes(Homes.getCore().getLang().getString("teleport-bar")));
+                    bar.addPlayer(player);
+                }
+
                 homesPlayer.setNoMove(true);
-                Homes.getCore().getServer().getScheduler().runTaskLater(Homes.getCore(), () -> {
+                int taskID = Homes.getCore().getServer().getScheduler().runTaskLater(Homes.getCore(), () -> {
                     // Don't do this if they did move
                     if (homesPlayer.cannotMove()) {
                         Homes.safeTeleportPlayer(player, home.getLocation());
+                        if (Homes.getCore().getConfig().getBoolean("use-boss-bar")) {
+                            bar.removePlayer(player);
+                            homesPlayer.setBossBar(null);
+                        }
                         sendMessageWithReplacement(player, "command.home.teleportedHome", "%name%", homeName);
                         homesPlayer.setNoMove(false);
                     }
-                }, tpDelay * 20L);
+                }, tpDelay * 20L).getTaskId();
+                homesPlayer.setBossBarTaskID(taskID);
             }
         }
 
@@ -107,15 +129,29 @@ public class CommandHome implements TabExecutor {
             } else {
                 sendMessageWithReplacement(player, "command.home.warmup", "%time%", String.valueOf(tpDelay));
                 homesPlayer.setNoMove(true);
-                Homes.getCore().getServer().getScheduler().runTaskLater(Homes.getCore(), () -> {
+
+                // Boss bar shizzle
+                Bar bar = new Bar(Homes.getCore());
+                if (Homes.getCore().getConfig().getBoolean("use-boss-bar")) {
+                    homesPlayer.setBossBar(bar);
+                    bar.createBar(tpDelay, Chat.applyColorCodes(Homes.getCore().getLang().getString("teleport-bar")));
+                    bar.addPlayer(player);
+                }
+
+                int taskID = Homes.getCore().getServer().getScheduler().runTaskLater(Homes.getCore(), () -> {
                     // Don't do this if they did move
                     if (homesPlayer.cannotMove()) {
                         Homes.safeTeleportPlayer(player, home.getLocation());
+                        if (Homes.getCore().getConfig().getBoolean("use-boss-bar")) {
+                            bar.removePlayer(player);
+                            homesPlayer.setBossBar(null);
+                        }
                         sendMessageWithReplacements(player, "command.home.teleportedOther", "%name%", homeName,
                                 "%player%", target.getLastSeenName());
                         homesPlayer.setNoMove(false);
                     }
-                }, tpDelay * 20L);
+                }, tpDelay * 20L).getTaskId();
+                homesPlayer.setBossBarTaskID(taskID);
             }
         }
         return true;

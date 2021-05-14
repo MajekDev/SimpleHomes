@@ -97,7 +97,8 @@ public class Home {
      * Convert the JSON string from {@link Home#locToJsonString()} to a {@link JsonObject} for storage
      * @return JsonObject of home location
      */
+    @SuppressWarnings("deprecation")
     public JsonObject getLocAsJsonObject() {
-        return (JsonObject) JsonParser.parseString(this.locToJsonString());
+        return (JsonObject) new JsonParser().parse(this.locToJsonString());
     }
 }

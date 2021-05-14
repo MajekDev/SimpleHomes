@@ -1,6 +1,7 @@
 package dev.majek.homes.mechanic;
 
 import dev.majek.homes.Homes;
+import dev.majek.homes.data.struct.Bar;
 import dev.majek.homes.data.struct.HomesPlayer;
 import dev.majek.homes.util.Chat;
 import org.bukkit.entity.Player;
@@ -21,6 +22,12 @@ public class PlayerMove implements Listener {
 
         if (homesPlayer.cannotMove()) {
             homesPlayer.setNoMove(false);
+            if (Homes.getCore().getConfig().getBoolean("use-boss-bar")) {
+                Bar bar = homesPlayer.getBossBar();
+                bar.removePlayer(player);
+                bar.removeBar();
+            }
+            Homes.getCore().getServer().getScheduler().cancelTask(homesPlayer.getBossBarTaskID());
             String message = Homes.getCore().getLang().getString("command.home.teleportationCancelled", "null");
             if (Homes.getCore().getConfig().getBoolean("use-prefix"))
                 message = Homes.getCore().getLang().getString("prefix") + " " + message;

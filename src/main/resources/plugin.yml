@@ -24,6 +24,7 @@ commands:
     description: List all of your homes.
   undodelhome:
     description: Undo your most recent home deletion.
+    aliases: [restorehome]
 permissions:
   majekhomes.sethome:
     description: Allows players to set a home.

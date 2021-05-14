@@ -1,6 +1,7 @@
 # MajekHomes by Majekdor. Need help? Ask here: https://discord.majek.dev
 # Message configuration - use standard minecraft codes (ex. &a) and hex codes (ex. &#rrggbb)
 prefix: '&3&lHomes&7:'
+teleport-bar: '&bTeleporting...'
 command:
   noPermission: '&cYou do not have permission to do that!'
   reloaded: '&aMajekHomes reloaded successfully!'
@@ -21,6 +22,7 @@ command:
     invalidHomeOther: '&b%player%&7 does not have a home named &b%name%&7. Type &b/homes &6<&bplayer&6>&7 to see their homes.'
     warmup: '&7Teleporting in &b%time% &7seconds. Do not move...'
     teleportationCancelled: '&7You moved! Teleportation canceled.'
+    wait: '&7You cannot run this command right now.'
   homes:
     usage: '&7Usage: &b/homes &6[&bplayer&6]'
     headerYours: '&bYour Homes'

@@ -23,6 +23,8 @@ public class HomesPlayer {
     private boolean noMove;
     private Home lastDeletedHome;
     private final List<SharedHome> sharedHomes;
+    private Bar bossBar;
+    private int bossBarTaskID;
 
     /**
      * Constructed when a player joins for the first time and has never been registered by the plugin.
@@ -224,6 +226,22 @@ public class HomesPlayer {
 
     public void removeSharedHome(SharedHome home) {
         this.sharedHomes.remove(home);
+    }
+
+    public Bar getBossBar() {
+        return bossBar;
+    }
+
+    public void setBossBar(Bar bossBar) {
+        this.bossBar = bossBar;
+    }
+
+    public int getBossBarTaskID() {
+        return bossBarTaskID;
+    }
+
+    public void setBossBarTaskID(int bossBarTaskID) {
+        this.bossBarTaskID = bossBarTaskID;
     }
 
 }
