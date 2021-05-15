@@ -1,3 +1,5 @@
+<img align="right" src="https://github.com/Majekdor/MajekHomes/blob/master/majekhomes.png?raw=true" height="200" width="220">
+
 # MajekHomes
 
 MajekHomes is a fully-featured homes plugin currently in development by Majekdor. The plugin has a few goals: be 
