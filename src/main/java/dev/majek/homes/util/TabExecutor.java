@@ -1,8 +1,6 @@
 package dev.majek.homes.util;
 
 import dev.majek.homes.Homes;
-import net.kyori.adventure.text.serializer.bungeecord.BungeeComponentSerializer;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -11,15 +9,14 @@ public interface TabExecutor extends TabCompleter, CommandExecutor {
 
     @SuppressWarnings("deprecation")
     default void sendFormattedMessage(CommandSender sender, String message) {
+        ChatParser parser = new ChatParser().parse(ChatUtils.applyColorCodes(message));
         try {
-            sender.sendMessage(Chat.parseExpression(sender, Chat.applyColorCodes(message)));
+            sender.sendMessage(parser.getAsComponent());
         } catch (NoSuchMethodError error1) {
             try {
-                sender.spigot().sendMessage(BungeeComponentSerializer.get().serialize(Chat
-                        .parseExpression(sender, Chat.applyColorCodes(message))));
+                sender.spigot().sendMessage(parser.getAsBaseComponent());
             } catch (NoSuchMethodError error2) {
-                sender.sendMessage(Chat.applyColorCodes(LegacyComponentSerializer.legacyAmpersand()
-                        .serialize(Chat.parseExpression(sender, Chat.applyColorCodes(message)))));
+                sender.sendMessage(parser.getAsRawString());
             }
         }
     }

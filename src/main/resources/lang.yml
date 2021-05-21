@@ -1,7 +1,7 @@
 # MajekHomes by Majekdor. Need help? Ask here: https://discord.majek.dev
 # Message configuration - use standard minecraft codes (ex. &a) and hex codes (ex. &#rrggbb)
 prefix: '&3&lHomes&7:'
-teleport-bar: '&bTeleporting...'
+teleportBar: '&bTeleporting...'
 command:
   noPermission: '&cYou do not have permission to do that!'
   reloaded: '&aMajekHomes reloaded successfully!'

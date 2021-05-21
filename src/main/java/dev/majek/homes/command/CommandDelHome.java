@@ -103,7 +103,7 @@ public class CommandDelHome implements TabExecutor {
             } else if (args.length == 2 && player.hasPermission("majekhomes.delhome.other")) {
                 HomesPlayer homesPlayer = Homes.getCore().getHomesPlayer(args[0]);
                 if (homesPlayer != null)
-                    return TabCompleterBase.filterStartingWith(args[0], homesPlayer.getHomes().stream().map(Home::getName)
+                    return TabCompleterBase.filterStartingWith(args[1], homesPlayer.getHomes().stream().map(Home::getName)
                             .collect(Collectors.toList()));
                 else
                     return Collections.emptyList();

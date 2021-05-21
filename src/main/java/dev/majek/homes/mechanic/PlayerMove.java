@@ -3,7 +3,7 @@ package dev.majek.homes.mechanic;
 import dev.majek.homes.Homes;
 import dev.majek.homes.data.struct.Bar;
 import dev.majek.homes.data.struct.HomesPlayer;
-import dev.majek.homes.util.Chat;
+import dev.majek.homes.util.ChatUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -31,7 +31,7 @@ public class PlayerMove implements Listener {
             String message = Homes.getCore().getLang().getString("command.home.teleportationCancelled", "null");
             if (Homes.getCore().getConfig().getBoolean("use-prefix"))
                 message = Homes.getCore().getLang().getString("prefix") + " " + message;
-            player.sendMessage(Chat.applyColorCodes(message));
+            player.sendMessage(ChatUtils.applyColorCodes(message));
         }
     }
 }

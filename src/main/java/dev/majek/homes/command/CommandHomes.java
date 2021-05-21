@@ -93,11 +93,16 @@ public class CommandHomes implements TabExecutor {
 
             // Build pagination for homes
             List<String> lines = new ArrayList<>();
-            for (Home home : homesPlayer.getHomes()) {
-                String line = "&b" + home.getName() + " &f- ${hover-command,&7" + home.getLocation().getBlockX() + " "
-                        + home.getLocation().getBlockY() + " " + home.getLocation().getBlockZ() + ","
-                        + Homes.getCore().getLang().getString("command.homes.clickToTravel") + ",/home "
-                        + home.getName() + "}";
+            for (Home home : target.getHomes()) {
+                String line;
+                if (player.hasPermission("majekhomes.home.other"))
+                    line = "&b" + home.getName() + " &f- ${hover-command,&7" + home.getLocation().getBlockX() + " "
+                            + home.getLocation().getBlockY() + " " + home.getLocation().getBlockZ() + ","
+                            + Homes.getCore().getLang().getString("command.homes.clickToTravel") + ",/home "
+                            + target.getLastSeenName() + " " + home.getName() + "}";
+                else
+                    line = "&b" + home.getName() + " &f- &7" + home.getLocation().getBlockX() + " "
+                            + home.getLocation().getBlockY() + " " + home.getLocation().getBlockZ();
                 lines.add(line);
             }
 
@@ -215,14 +220,14 @@ public class CommandHomes implements TabExecutor {
          * @return The created page ready to send formatted.
          */
         public String createPage(List<String> lines, int pageNumber, String command) {
-            String page;
+            // TODO: switch this from string format with ChatParser to Component chaining
             String prevPage = currentPage > 1 ? "${hover-command,&6[&b" + PREV + "&6],&6" + PREVIOUS_PAGE + ",/"
                     + command + " " + (pageNumber - 1) + "} " : "${hover,&6[&7" + PREV + "&6],&6" + NO_PREVIOUS_PAGE + "} ";
             String title = this.header + " - " + PAGE + " " + pageNumber + "/" + pages;
             String nextPage = this.currentPage == pages ? " ${hover,&6[&7" + NEXT + "&6],&6" + NO_NEXT_PAGE + "}"
                     : " ${hover-command,&6[&b" + NEXT + "&6],&6" + NEXT_PAGE + ",/"
                     + command + " " + (pageNumber + 1) + "}";
-            page = prevPage + title + nextPage;
+            String page = prevPage + title + nextPage;
             StringBuilder buildLines = new StringBuilder();
             for (String line : lines)
                 buildLines.append("\n").append(line);

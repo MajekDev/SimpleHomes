@@ -4,7 +4,7 @@ import dev.majek.homes.Homes;
 import dev.majek.homes.data.struct.Bar;
 import dev.majek.homes.data.struct.Home;
 import dev.majek.homes.data.struct.HomesPlayer;
-import dev.majek.homes.util.Chat;
+import dev.majek.homes.util.ChatUtils;
 import dev.majek.homes.util.TabCompleterBase;
 import dev.majek.homes.util.TabExecutor;
 import org.bukkit.command.Command;
@@ -74,7 +74,7 @@ public class CommandHome implements TabExecutor {
                 Bar bar = new Bar(Homes.getCore());
                 if (Homes.getCore().getConfig().getBoolean("use-boss-bar")) {
                     homesPlayer.setBossBar(bar);
-                    bar.createBar(tpDelay, Chat.applyColorCodes(Homes.getCore().getLang().getString("teleport-bar")));
+                    bar.createBar(tpDelay, ChatUtils.applyColorCodes(Homes.getCore().getLang().getString("teleportBar")));
                     bar.addPlayer(player);
                 }
 
@@ -134,7 +134,7 @@ public class CommandHome implements TabExecutor {
                 Bar bar = new Bar(Homes.getCore());
                 if (Homes.getCore().getConfig().getBoolean("use-boss-bar")) {
                     homesPlayer.setBossBar(bar);
-                    bar.createBar(tpDelay, Chat.applyColorCodes(Homes.getCore().getLang().getString("teleport-bar")));
+                    bar.createBar(tpDelay, ChatUtils.applyColorCodes(Homes.getCore().getLang().getString("teleportBar")));
                     bar.addPlayer(player);
                 }
 
@@ -168,7 +168,7 @@ public class CommandHome implements TabExecutor {
             } else if (args.length == 2 && player.hasPermission("majekhomes.homes.others")) {
                 HomesPlayer homesPlayer = Homes.getCore().getHomesPlayer(args[0]);
                 if (homesPlayer != null)
-                    return TabCompleterBase.filterStartingWith(args[0], homesPlayer.getHomes().stream().map(Home::getName)
+                    return TabCompleterBase.filterStartingWith(args[1], homesPlayer.getHomes().stream().map(Home::getName)
                             .collect(Collectors.toList()));
                 else
                     return Collections.emptyList();
