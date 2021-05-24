@@ -1,4 +1,4 @@
-package dev.majek.homes.data;
+package dev.majek.simplehomes.data;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 import java.util.logging.Level;
 
 /**
- * Used for YAML configuration files.
+ * Handles for YAML configuration files
  */
 public class YAMLConfig {
     private final JavaPlugin plugin;

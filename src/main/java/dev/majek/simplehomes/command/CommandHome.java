@@ -1,12 +1,13 @@
-package dev.majek.homes.command;
+package dev.majek.simplehomes.command;
 
-import dev.majek.homes.Homes;
-import dev.majek.homes.data.struct.Bar;
-import dev.majek.homes.data.struct.Home;
-import dev.majek.homes.data.struct.HomesPlayer;
-import dev.majek.homes.util.ChatUtils;
-import dev.majek.homes.util.TabCompleterBase;
-import dev.majek.homes.util.TabExecutor;
+import dev.majek.simplehomes.SimpleHomes;
+import dev.majek.simplehomes.api.HomeTeleportEvent;
+import dev.majek.simplehomes.data.struct.Bar;
+import dev.majek.simplehomes.data.struct.Home;
+import dev.majek.simplehomes.data.struct.HomesPlayer;
+import dev.majek.simplehomes.util.TabCompleterBase;
+import dev.majek.simplehomes.util.TabExecutor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -31,14 +32,14 @@ public class CommandHome implements TabExecutor {
         }
 
         Player player = (Player) sender;
-        HomesPlayer homesPlayer = Homes.getCore().getHomesPlayer(player.getUniqueId());
+        HomesPlayer homesPlayer = SimpleHomes.core().getHomesPlayer(player.getUniqueId());
 
         // Player is teleporting to their own home
         if (args.length < 2) {
             String homeName = args.length > 0 ? args[0] : "home";
 
             // Check if the player has permission
-            if (!player.hasPermission("majekhomes.home")) {
+            if (!player.hasPermission("simplehomes.home")) {
                 sendMessage(player, "command.noPermission");
                 return true;
             }
@@ -63,34 +64,40 @@ public class CommandHome implements TabExecutor {
             }
 
             // Teleport the player to their home with delay if necessary
-            int tpDelay= Homes.getCore().getConfig().getInt("teleport-delay");
-            if (player.hasPermission("majekhomes.delay.bypass") || tpDelay <= 0) {
-                Homes.safeTeleportPlayer(player, home.getLocation());
+            int tpDelay = SimpleHomes.core().getConfig().getInt("teleport-delay");
+            HomeTeleportEvent tpEvent = new HomeTeleportEvent(player, homesPlayer, home, player.getLocation(),
+                    true, tpDelay, true);
+            SimpleHomes.api().callEvent(tpEvent);
+            if (tpEvent.isCancelled())
+                return true;
+
+            if (player.hasPermission("simplehomes.delay.bypass") || tpEvent.teleportDelay() <= 0 || tpEvent.noTeleportDelay()) {
+                SimpleHomes.core().safeTeleportPlayer(player, tpEvent.teleportingTo());
                 sendMessageWithReplacement(player, "command.home.teleportedHome", "%name%", homeName);
             } else {
                 sendMessageWithReplacement(player, "command.home.warmup", "%time%", String.valueOf(tpDelay));
 
                 // Boss bar shizzle
-                Bar bar = new Bar(Homes.getCore());
-                if (Homes.getCore().getConfig().getBoolean("use-boss-bar")) {
+                Bar bar = new Bar(SimpleHomes.core());
+                if (SimpleHomes.core().getConfig().getBoolean("use-boss-bar")) {
                     homesPlayer.setBossBar(bar);
-                    bar.createBar(tpDelay, ChatUtils.applyColorCodes(Homes.getCore().getLang().getString("teleportBar")));
+                    bar.createBar(tpDelay, MiniMessage.get().parse(SimpleHomes.core().getLang().getString("teleportBar", "null")));
                     bar.addPlayer(player);
                 }
 
                 homesPlayer.setNoMove(true);
-                int taskID = Homes.getCore().getServer().getScheduler().runTaskLater(Homes.getCore(), () -> {
+                int taskID = SimpleHomes.core().getServer().getScheduler().runTaskLater(SimpleHomes.core(), () -> {
                     // Don't do this if they did move
                     if (homesPlayer.cannotMove()) {
-                        Homes.safeTeleportPlayer(player, home.getLocation());
-                        if (Homes.getCore().getConfig().getBoolean("use-boss-bar")) {
+                        SimpleHomes.core().safeTeleportPlayer(player, tpEvent.teleportingTo());
+                        if (SimpleHomes.core().getConfig().getBoolean("use-boss-bar")) {
                             bar.removePlayer(player);
                             homesPlayer.setBossBar(null);
                         }
                         sendMessageWithReplacement(player, "command.home.teleportedHome", "%name%", homeName);
                         homesPlayer.setNoMove(false);
                     }
-                }, tpDelay * 20L).getTaskId();
+                }, tpEvent.teleportDelay() * 20L).getTaskId();
                 homesPlayer.setBossBarTaskID(taskID);
             }
         }
@@ -98,10 +105,10 @@ public class CommandHome implements TabExecutor {
         // Player is trying to teleport to someone else's home
         else {
             String homeName = args[1];
-            HomesPlayer target = Homes.getCore().getHomesPlayer(args[0]);
+            HomesPlayer target = SimpleHomes.core().getHomesPlayer(args[0]);
 
             // Check if the player has permission
-            if (!player.hasPermission("majekhomes.home.other")) {
+            if (!player.hasPermission("simplehomes.home.other")) {
                 sendMessage(player, "command.noPermission");
                 return true;
             }
@@ -120,10 +127,16 @@ public class CommandHome implements TabExecutor {
                 return true;
             }
 
-            // Teleport the player to their home with delay if necessary
-            int tpDelay= Homes.getCore().getConfig().getInt("teleport-delay");
-            if (player.hasPermission("majekhomes.delay.bypass") || tpDelay <= 0) {
-                Homes.safeTeleportPlayer(player, home.getLocation());
+            // Teleport the player to target's home with delay if necessary
+            int tpDelay = SimpleHomes.core().getConfig().getInt("teleport-delay");
+            HomeTeleportEvent tpEvent = new HomeTeleportEvent(player, target, home, player.getLocation(),
+                    true, tpDelay, false);
+            SimpleHomes.api().callEvent(tpEvent);
+            if (tpEvent.isCancelled())
+                return true;
+
+            if (player.hasPermission("simplehomes.delay.bypass") || tpEvent.teleportDelay() <= 0 || tpEvent.noTeleportDelay()) {
+                SimpleHomes.core().safeTeleportPlayer(player, tpEvent.teleportingTo());
                 sendMessageWithReplacements(player, "command.home.teleportedOther", "%name%", homeName,
                         "%player%", target.getLastSeenName());
             } else {
@@ -131,18 +144,18 @@ public class CommandHome implements TabExecutor {
                 homesPlayer.setNoMove(true);
 
                 // Boss bar shizzle
-                Bar bar = new Bar(Homes.getCore());
-                if (Homes.getCore().getConfig().getBoolean("use-boss-bar")) {
+                Bar bar = new Bar(SimpleHomes.core());
+                if (SimpleHomes.core().getConfig().getBoolean("use-boss-bar")) {
                     homesPlayer.setBossBar(bar);
-                    bar.createBar(tpDelay, ChatUtils.applyColorCodes(Homes.getCore().getLang().getString("teleportBar")));
+                    bar.createBar(tpDelay, MiniMessage.get().parse(SimpleHomes.core().getLang().getString("teleportBar", "null")));
                     bar.addPlayer(player);
                 }
 
-                int taskID = Homes.getCore().getServer().getScheduler().runTaskLater(Homes.getCore(), () -> {
+                int taskID = SimpleHomes.core().getServer().getScheduler().runTaskLater(SimpleHomes.core(), () -> {
                     // Don't do this if they did move
                     if (homesPlayer.cannotMove()) {
-                        Homes.safeTeleportPlayer(player, home.getLocation());
-                        if (Homes.getCore().getConfig().getBoolean("use-boss-bar")) {
+                        SimpleHomes.core().safeTeleportPlayer(player, tpEvent.teleportingTo());
+                        if (SimpleHomes.core().getConfig().getBoolean("use-boss-bar")) {
                             bar.removePlayer(player);
                             homesPlayer.setBossBar(null);
                         }
@@ -150,7 +163,7 @@ public class CommandHome implements TabExecutor {
                                 "%player%", target.getLastSeenName());
                         homesPlayer.setNoMove(false);
                     }
-                }, tpDelay * 20L).getTaskId();
+                }, tpEvent.teleportDelay() * 20L).getTaskId();
                 homesPlayer.setBossBarTaskID(taskID);
             }
         }
@@ -162,13 +175,13 @@ public class CommandHome implements TabExecutor {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             if (args.length == 1) {
-                HomesPlayer homesPlayer = Homes.getCore().getHomesPlayer(player.getUniqueId());
-                return TabCompleterBase.filterStartingWith(args[0], homesPlayer.getHomes().stream().map(Home::getName)
+                HomesPlayer homesPlayer = SimpleHomes.core().getHomesPlayer(player.getUniqueId());
+                return TabCompleterBase.filterStartingWith(args[0], homesPlayer.getHomes().stream().map(Home::name)
                         .collect(Collectors.toList()));
-            } else if (args.length == 2 && player.hasPermission("majekhomes.homes.others")) {
-                HomesPlayer homesPlayer = Homes.getCore().getHomesPlayer(args[0]);
+            } else if (args.length == 2 && player.hasPermission("simplehomes.homes.others")) {
+                HomesPlayer homesPlayer = SimpleHomes.core().getHomesPlayer(args[0]);
                 if (homesPlayer != null)
-                    return TabCompleterBase.filterStartingWith(args[1], homesPlayer.getHomes().stream().map(Home::getName)
+                    return TabCompleterBase.filterStartingWith(args[1], homesPlayer.getHomes().stream().map(Home::name)
                             .collect(Collectors.toList()));
                 else
                     return Collections.emptyList();

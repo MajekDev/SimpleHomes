@@ -1,12 +1,11 @@
-package dev.majek.homes.data;
+package dev.majek.simplehomes.data;
 
 import com.google.gson.*;
-import dev.majek.homes.Homes;
 
 import java.io.*;
 
 /**
- * Used for JSON configuration files.
+ * Handles for JSON configuration files
  */
 public class JSONConfig {
 
@@ -94,8 +93,7 @@ public class JSONConfig {
         try {
             IGNORE_RESULT(configFile.createNewFile());
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            JsonParser jp = new JsonParser();
-            JsonElement je = jp.parse("{}");
+            JsonElement je = JsonParser.parseString("{}");
             PrintWriter write = new PrintWriter(configFile);
             write.write(gson.toJson(je));
             write.close();
@@ -133,12 +131,12 @@ public class JSONConfig {
     }
 
     public JsonObject toJsonObject() throws IOException, JsonParseException {
-        return (JsonObject) new JsonParser().parse(new FileReader(configFile));
+        return (JsonObject) JsonParser.parseReader(new FileReader(configFile));
     }
 
     public void putInJsonObject(String k, JsonElement v) throws IOException, JsonParseException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        JsonObject obj = (JsonObject) new JsonParser().parse(new FileReader(configFile));
+        JsonObject obj = (JsonObject) JsonParser.parseReader(new FileReader(configFile));
         obj.add(k, v);
         PrintWriter write = new PrintWriter(configFile);
         write.write(gson.toJson(obj));
@@ -147,7 +145,7 @@ public class JSONConfig {
 
     public void putInJsonObject(String k, String v) throws IOException, JsonParseException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        JsonObject obj = (JsonObject) new JsonParser().parse(new FileReader(configFile));
+        JsonObject obj = (JsonObject) JsonParser.parseReader(new FileReader(configFile));
         obj.addProperty(k, v);
         PrintWriter write = new PrintWriter(configFile);
         write.write(gson.toJson(obj));
@@ -156,7 +154,7 @@ public class JSONConfig {
 
     public void putInJsonObject(String k, int v) throws IOException, JsonParseException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        JsonObject obj = (JsonObject) new JsonParser().parse(new FileReader(configFile));
+        JsonObject obj = (JsonObject) JsonParser.parseReader(new FileReader(configFile));
         obj.addProperty(k, v);
         PrintWriter write = new PrintWriter(configFile);
         write.write(gson.toJson(obj));
@@ -165,7 +163,7 @@ public class JSONConfig {
 
     public void removeFromJsonObject(String key) throws IOException, JsonParseException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        JsonObject obj = (JsonObject) new JsonParser().parse(new FileReader(configFile));
+        JsonObject obj = (JsonObject) JsonParser.parseReader(new FileReader(configFile));
         obj.remove(key);
         PrintWriter write = new PrintWriter(configFile);
         write.write(gson.toJson(obj));

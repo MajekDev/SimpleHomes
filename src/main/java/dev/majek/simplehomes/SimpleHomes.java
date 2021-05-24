@@ -1,13 +1,14 @@
-package dev.majek.homes;
+package dev.majek.simplehomes;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import dev.majek.homes.command.*;
-import dev.majek.homes.data.*;
-import dev.majek.homes.data.struct.HomesPlayer;
-import dev.majek.homes.mechanic.PlayerJoin;
-import dev.majek.homes.mechanic.PlayerMove;
-import dev.majek.homes.mechanic.PlayerRespawn;
+import dev.majek.simplehomes.api.SimpleHomesAPI;
+import dev.majek.simplehomes.command.*;
+import dev.majek.simplehomes.data.*;
+import dev.majek.simplehomes.data.struct.HomesPlayer;
+import dev.majek.simplehomes.mechanic.PlayerJoin;
+import dev.majek.simplehomes.mechanic.PlayerMove;
+import dev.majek.simplehomes.mechanic.PlayerRespawn;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -20,15 +21,20 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public final class Homes extends JavaPlugin {
+/**
+ * Main plugin class
+ */
+public final class SimpleHomes extends JavaPlugin {
 
-    private static Homes instance;
+    private static SimpleHomes core;
+    private static SimpleHomesAPI api;
     private final Map<UUID, HomesPlayer> userMap;
-    public FileConfiguration lang;
-    public static boolean hasPapi = false;
+    private FileConfiguration lang;
+    public boolean hasPapi = false;
 
-    public Homes() {
-        instance = this;
+    public SimpleHomes() {
+        core = this;
+        api = new SimpleHomesAPI();
         this.userMap = new HashMap<>();
     }
 
@@ -52,7 +58,7 @@ public final class Homes extends JavaPlugin {
                 try {
                     fileContents = dataStorage.toJsonObject();
                 } catch (IOException | JsonParseException e) {
-                    Homes.getCore().getLogger().severe("Critical error loading player data from "
+                    SimpleHomes.core().getLogger().severe("Critical error loading player data from "
                             + dataStorage.getFile().getName());
                     e.printStackTrace();
                     continue;
@@ -81,13 +87,8 @@ public final class Homes extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerRespawn(), this);
     }
 
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-    }
-
     @SuppressWarnings("ConstantConditions")
-    public void registerCommands() {
+    private void registerCommands() {
         getCommand("home").setExecutor(new CommandHome());
         getCommand("home").setTabCompleter(new CommandHome());
         getCommand("homes").setExecutor(new CommandHomes());
@@ -96,50 +97,69 @@ public final class Homes extends JavaPlugin {
         getCommand("sethome").setTabCompleter(new CommandSetHome());
         getCommand("delhome").setExecutor(new CommandDelHome());
         getCommand("delhome").setTabCompleter(new CommandDelHome());
-        getCommand("movehome").setExecutor(new CommandMoveHome());
-        getCommand("movehome").setTabCompleter(new CommandMoveHome());
-        getCommand("majekhomes").setExecutor(new CommandMajekHomes());
-        getCommand("majekhomes").setTabCompleter(new CommandMajekHomes());
-        getCommand("undodelhome").setExecutor(new CommandUndoDelHome());
-        getCommand("undodelhome").setTabCompleter(new CommandUndoDelHome());
+        getCommand("simplehomes").setExecutor(new CommandSimpleHomes());
+        getCommand("simplehomes").setTabCompleter(new CommandSimpleHomes());
     }
 
+    /**
+     * Reload the plugin's configuration files.
+     */
     public void reload() {
         // Initialize main config
         saveDefaultConfig();
-        File configFile = new File(instance.getDataFolder(), "config.yml");
+        File configFile = new File(core.getDataFolder(), "config.yml");
         try {
-            ConfigUpdater.update(instance, "config.yml", configFile, Collections.emptyList());
+            ConfigUpdater.update(core, "config.yml", configFile, Collections.emptyList());
         } catch (IOException e) {
             e.printStackTrace();
         }
         reloadConfig();
 
         // Initialize lang config
-        YAMLConfig langConfig = new YAMLConfig(Homes.getCore(), null, "lang.yml");
+        YAMLConfig langConfig = new YAMLConfig(SimpleHomes.core(), null, "lang.yml");
         langConfig.saveDefaultConfig();
-        File langFile = new File(instance.getDataFolder(), "lang.yml");
-        try {
-            ConfigUpdater.update(instance, "lang.yml", langFile, Collections.emptyList());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         langConfig.reloadConfig();
         lang = langConfig.getConfig();
     }
 
-    public static Homes getCore() {
-        return instance;
+    /**
+     * Get SimpleHomes core. Returns an instance of the main class.
+     * @return SimpleHomes.
+     */
+    public static SimpleHomes core() {
+        return core;
     }
 
+    /**
+     * Get the SimpleHomes API. Has some useful methods.
+     * @return SimpeHomesAPI.
+     */
+    public static SimpleHomesAPI api() {
+        return api;
+    }
+
+    /**
+     * Get the language file for messages.
+     * @return Lang file.
+     */
     public FileConfiguration getLang() {
-        return instance.lang;
+        return core.lang;
     }
 
+    /**
+     * Get a {@link HomesPlayer} via a {@link Player} or {@link org.bukkit.OfflinePlayer}'s unique id. May return null.
+     * @param uuid The unique id.
+     * @return HomesPlayer if it exists.
+     */
     public HomesPlayer getHomesPlayer(UUID uuid) {
         return this.userMap.get(uuid);
     }
 
+    /**
+     * Get a {@link HomesPlayer} from a username. May return null.
+     * @param name The username.
+     * @return HomesPlayer if it exists.
+     */
     public HomesPlayer getHomesPlayer(String name) {
         for (HomesPlayer homesPlayer : userMap.values()) {
             if (homesPlayer.getLastSeenName().equalsIgnoreCase(name))
@@ -148,15 +168,28 @@ public final class Homes extends JavaPlugin {
         return null;
     }
 
+    /**
+     * Add a new {@link HomesPlayer} to the user map. Used internally.
+     * @param homesPlayer New user.
+     */
     public void addToUserMap(HomesPlayer homesPlayer) {
         this.userMap.put(homesPlayer.getUuid(), homesPlayer);
     }
 
+    /**
+     * Get the user map. Pairs unique ids to {@link HomesPlayer} objects.
+     * @return User map.
+     */
     public Map<UUID, HomesPlayer> getUserMap() {
         return this.userMap;
     }
 
-    public static void safeTeleportPlayer(final Player player, final Location location) {
+    /**
+     * Safely teleport a player.
+     * @param player The player.
+     * @param location Teleport destination.
+     */
+    public void safeTeleportPlayer(final Player player, final Location location) {
         player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 140, 7));
         player.teleport(location);
         player.setFallDistance(0);

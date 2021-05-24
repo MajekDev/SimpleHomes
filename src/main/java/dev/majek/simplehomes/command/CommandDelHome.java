@@ -1,10 +1,11 @@
-package dev.majek.homes.command;
+package dev.majek.simplehomes.command;
 
-import dev.majek.homes.Homes;
-import dev.majek.homes.data.struct.Home;
-import dev.majek.homes.data.struct.HomesPlayer;
-import dev.majek.homes.util.TabCompleterBase;
-import dev.majek.homes.util.TabExecutor;
+import dev.majek.simplehomes.SimpleHomes;
+import dev.majek.simplehomes.api.HomeDeleteEvent;
+import dev.majek.simplehomes.data.struct.Home;
+import dev.majek.simplehomes.data.struct.HomesPlayer;
+import dev.majek.simplehomes.util.TabCompleterBase;
+import dev.majek.simplehomes.util.TabExecutor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -29,14 +30,14 @@ public class CommandDelHome implements TabExecutor {
         }
 
         Player player = (Player) sender;
-        HomesPlayer homesPlayer = Homes.getCore().getHomesPlayer(player.getUniqueId());
+        HomesPlayer homesPlayer = SimpleHomes.core().getHomesPlayer(player.getUniqueId());
 
         // Player is deleting their own home
         if (args.length < 2) {
             String homeName = args.length > 0 ? args[0] : "home";
 
             // Check if the player has permission
-            if (!player.hasPermission("majekhomes.delhome")) {
+            if (!player.hasPermission("simplehomes.delhome")) {
                 sendMessage(player, "command.noPermission");
                 return true;
             }
@@ -49,20 +50,21 @@ public class CommandDelHome implements TabExecutor {
             }
 
             // Delete home
+            HomeDeleteEvent event = new HomeDeleteEvent(player, homesPlayer, home, true);
+            SimpleHomes.api().callEvent(event);
+            if (event.isCancelled())
+                return true;
             homesPlayer.removeHome(home);
             sendMessageWithReplacement(player, "command.delhome.deleted", "%name%", homeName);
-            // Save last deleted home until restart
-            homesPlayer.setLastDeletedHome(home);
-
         }
 
         // Player is trying to delete someone else's home
         else {
             String homeName = args[1];
-            HomesPlayer target = Homes.getCore().getHomesPlayer(args[0]);
+            HomesPlayer target = SimpleHomes.core().getHomesPlayer(args[0]);
 
             // Check if the player has permission
-            if (!player.hasPermission("majekhomes.delhome.other")) {
+            if (!player.hasPermission("simplehomes.delhome.other")) {
                 sendMessage(player, "command.noPermission");
                 return true;
             }
@@ -82,12 +84,13 @@ public class CommandDelHome implements TabExecutor {
             }
 
             // Delete home
+            HomeDeleteEvent event = new HomeDeleteEvent(player, target, home, false);
+            SimpleHomes.api().callEvent(event);
+            if (event.isCancelled())
+                return true;
             target.removeHome(home);
             sendMessageWithReplacements(player, "command.delhome.deletedOther", "%name%", homeName,
                     "%player%", target.getLastSeenName());
-            // Save last deleted home until restart
-            target.setLastDeletedHome(home);
-
         }
         return true;
     }
@@ -97,13 +100,13 @@ public class CommandDelHome implements TabExecutor {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             if (args.length == 1) {
-                HomesPlayer homesPlayer = Homes.getCore().getHomesPlayer(player.getUniqueId());
-                return TabCompleterBase.filterStartingWith(args[0], homesPlayer.getHomes().stream().map(Home::getName)
+                HomesPlayer homesPlayer = SimpleHomes.core().getHomesPlayer(player.getUniqueId());
+                return TabCompleterBase.filterStartingWith(args[0], homesPlayer.getHomes().stream().map(Home::name)
                         .collect(Collectors.toList()));
-            } else if (args.length == 2 && player.hasPermission("majekhomes.delhome.other")) {
-                HomesPlayer homesPlayer = Homes.getCore().getHomesPlayer(args[0]);
+            } else if (args.length == 2 && player.hasPermission("simplehomes.delhome.other")) {
+                HomesPlayer homesPlayer = SimpleHomes.core().getHomesPlayer(args[0]);
                 if (homesPlayer != null)
-                    return TabCompleterBase.filterStartingWith(args[1], homesPlayer.getHomes().stream().map(Home::getName)
+                    return TabCompleterBase.filterStartingWith(args[1], homesPlayer.getHomes().stream().map(Home::name)
                             .collect(Collectors.toList()));
                 else
                     return Collections.emptyList();

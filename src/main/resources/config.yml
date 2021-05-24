@@ -1,4 +1,4 @@
-# MajekHomes by Majekdor. Need help? Ask here: https://discord.majek.dev
+# SimpleHomes by Majekdor. Need help? Ask here: https://discord.majek.dev
 
 # The default number of homes a user will have if they have no additional permissions
 # Set to -1 for unlimited (or just a huge number :P)
@@ -7,7 +7,8 @@ default-max-homes: 3
 # Whether or not to use the plugin prefix defined in the lang.yml in messages
 use-prefix: true
 
-# The teleport delay for players who don't have majekhomes.delay.bypass
+# The teleport delay for players who don't have simplehomes.delay.bypass
+# Set to 0 for no delay
 teleport-delay: 3
 
 # Whether or not players should respawn at their main home when they die

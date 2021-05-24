@@ -1,73 +1,62 @@
-# MajekHomes by Majekdor. Need help? Ask here: https://discord.majek.dev
-# Message configuration - use standard minecraft codes (ex. &a) and hex codes (ex. &#rrggbb)
-prefix: '&3&lHomes&7:'
-teleportBar: '&bTeleporting...'
+# SimpleHomes by Majekdor. Need help? Ask here: https://discord.majek.dev
+# Message configuration - for colors this uses MiniMessage (https://docs.adventure.kyori.net/minimessage.html#the-components)
+prefix: "<blue>Simple<aqua>Homes<gray>:"
+teleportBar: "<aqua>Teleporting<gray>..."
 command:
-  noPermission: '&cYou do not have permission to do that!'
-  reloaded: '&aMajekHomes reloaded successfully!'
-  invalidSender: '&cYou must be in-game to use this command.'
-  unknownPlayer: '&7Unknown player &b%player%&7.'
+  noPermission: "<red>You do not have permission to do that!"
+  reloaded: "<green>SimpleHomes reloaded successfully!"
+  invalidSender: "<red>You must be in-game to use this command."
+  unknownPlayer: "<gray>Unknown player <aqua>%player%<gray>."
   sethome:
-    usage: '&7Usage: &b/sethome &6<&bname&6>'
-    createdHome: '&7Set a home with name &b%name%&7 at your current location.'
-    noMoreHomes: '&7You cannot set any more homes! Use &b/delhome &6<&bname&6> &7to remove a home. (Limit: &b%limit%&7)'
-    nameAlreadyExists: '&7You already have a home with the name &b%name%&7! Try again with a different name.'
-    nonAlphanumeric: '&7Your home name must be alphanumeric! Please choose a different name.'
+    usage: "<gray>Usage: <aqua>/sethome <gold><</gold><aqua>name<gold>>"
+    createdHome: "<gray>Set a home with name <aqua>%name%<gray> at your current location."
+    noMoreHomes: "<gray>You cannot set any more homes! Use <aqua>/delhome <gold><<aqua>name<gold>><gray> to remove a home. (Limit: <aqua>%limit%<gray>)"
+    nameAlreadyExists: "<gray>You already have a home with the name <aqua>%name%<gray>! Try again with a different name."
+    nonAlphanumeric: "<gray>Your home name must be alphanumeric! Please choose a different name."
   home:
-    usage: '&7Usage: &b/home &6[&bname&6]'
-    noHomes: '&7You do not have any homes set! Set one with &b/sethome &6<&bname&6>'
-    invalidHome: '&7You do not have a home named &b%name%&7. Type &b/homes&7 to see your homes.'
-    teleportedHome: '&7Teleported to home &b%name%&7.'
-    teleportedOther: '&7Teleported to home &b%name%&7 belonging to &b%player%&7.'
-    invalidHomeOther: '&b%player%&7 does not have a home named &b%name%&7. Type &b/homes &6<&bplayer&6>&7 to see their homes.'
-    warmup: '&7Teleporting in &b%time% &7seconds. Do not move...'
-    teleportationCancelled: '&7You moved! Teleportation canceled.'
-    wait: '&7You cannot run this command right now.'
+    usage: "<gray>Usage: <aqua>/home <gold>[<aqua>name<gold>]"
+    noHomes: "<gray>You do not have any homes set! Set one with <aqua>/sethome <gold><<aqua>name<gold>>"
+    invalidHome: "<gray>You do not have a home named <aqua>%name%<gray>. Type <aqua>/homes<gray> to see your homes."
+    teleportedHome: "<gray>Teleported to home <aqua>%name%<gray>."
+    teleportedOther: "<gray>Teleported to home <aqua>%name%<gray> belonging to <aqua>%player%<gray>."
+    invalidHomeOther: "<aqua>%player%<gray> does not have a home named <aqua>%name%<gray>. Type <aqua>/homes <gold><<aqua>player<gold>><gray> to see their homes."
+    warmup: "<gray>Teleporting in <aqua>%time% <gray>seconds. Do not move..."
+    teleportationCancelled: "<gray>You moved! Teleportation canceled."
+    wait: "<gray>You cannot run this command right now."
   homes:
-    usage: '&7Usage: &b/homes &6[&bplayer&6]'
-    headerYours: '&bYour Homes'
-    headerOthers: '&7Homes belonging to &b%player%'
-    page: 'Page'
-    prev: 'Prev'
-    previousPage: '&bClick to view the previous page'
-    noPreviousPage: '&7No previous page'
-    next: 'Next'
-    nextPage: '&bClick to view the next page'
-    noNextPage: '&7No next page'
-    clickToTravel: '&bClick to teleport home'
-    invalidPage: '&7Invalid page number. Must be between 1 and %max%.'
-    noHomes: '&7You do not have any homes set! Set one with &b/sethome &6<&bname&6>'
-    noHomesOther: '&b%player%&7 does not have any homes set.'
+    usage: "<gray>Usage: <aqua>/homes <gold>[<aqua>player<gold>]"
+    headerYours: "<aqua>Your Homes"
+    headerOthers: "<gray>Homes belonging to <aqua>%player%"
+    page: "Page"
+    prev: "Prev"
+    previousPage: "<aqua>Click to view the previous page"
+    noPreviousPage: "<gray>No previous page"
+    next: "Next"
+    nextPage: "<aqua>Click to view the next page"
+    noNextPage: "<gray>No next page"
+    clickToTravel: "<aqua>Click to teleport home"
+    invalidPage: "<gray>Invalid page number. Must be between 1 and %max%."
+    noHomes: "<gray>You do not have any homes set! Set one with <aqua>/sethome <gold><<aqua>name<gold>>"
+    noHomesOther: "<aqua>%player%<gray> does not have any homes set."
   delhome:
-    usage: '&7Usage: &b/delhome &6[&bplayer&6] <&bname&6>'
-    invalidHome: '&7You do not have a home named &b%name%&7! Type &b/homes&7 to see your homes.'
-    invalidHomeOther: '&b%player%&7 does not have a home named &b%name%&7! Type &b/homes &6<&bname&6>&7 to see their homes.'
-    deleted: '&7Your home &b%name% &7was deleted.'
-    deletedOther: '&7Home &b%name% &7belonging to &b%player%&7 was deleted.'
-  movehome:
-    usage: '&7Usage: &b/movehome &6[&bname&6]'
-    invalidHome: '&7You do not have a home named &b%name%&7! Type &b/homes&7 to see your homes.'
-    homeMoved: '&7Home &b%name%&7 moved to your current location.'
-  undodelhome:
-    usage: '&7Usage: &b/undodelhome'
-    noHome: '&7There is no recently deleted home stored in memory.'
-    recoveredHome: '&7Home &b%name%&7 was recovered!'
+    usage: "<gray>Usage: <aqua>/delhome <gold>[<aqua>player<gold>] <gold><</gold><aqua>name<gold>>"
+    invalidHome: "<gray>You do not have a home named <aqua>%name%<gray>! Type <aqua>/homes<gray> to see your homes."
+    invalidHomeOther: "<aqua>%player%<gray> does not have a home named <aqua>%name%<gray>! Type <aqua>/homes <gold><<aqua>name<gold>><gray> to see their homes."
+    deleted: "<gray>Your home <aqua>%name% <gray>was deleted."
+    deletedOther: "<gray>Home <aqua>%name% <gray>belonging to <aqua>%player%<gray> was deleted."
   help:
     version:
-      - '&7&l---------------------------------'
-      - '                  &9Majek&bHomes'
-      - '            &7Created by: &bMajekdor'
-      - '                &7Version: &b%version%'
-      - '   &7Use /majekhomes help to get started'
-      - '&7&l---------------------------------'
-    # If you're confused about the custom formatting join https://discord.majek.dev (documentation coming)
+      - "<gray><bold>---------------------------------"
+      - "                  <blue>Simple<aqua>Homes"
+      - "            <gray>Created by: <aqua>Majekdor"
+      - "                <gray>Version: <aqua>%version%"
+      - "   <gray>Use /simplehomes help to get started"
+      - "<gray><bold>---------------------------------"
     help:
-      - '&7&l------------------&9&lMajek&b&lHomes&7&l------------------'
-      - '&7· ${hover,&bHome,&7Usage: &b/home &6[&bname&6]}&f: &7Go to a home.'
-      - '&7· ${hover,&bHomes,&7Usage: &b/homes &6[&bplayer&6]}&f: &7List all of your homes.'
-      - '&7· ${hover,&bSetHome,&7Usage: &b/sethome &6<&bname&6>}&f: &7Set a home at your current location.'
-      - '&7· ${hover,&bDelHome,&7Usage: &b/delhome &6[&bplayer&6] <&bname&6>}&f: &7Delete one of your homes.'
-      - '&7· ${hover,&bMoveHome,&7Usage: &b/movehome &6[&bname&6]}&f: &7Move an existing home to your current location.'
-      - '&7· ${hover,&bUndoDelHome,&7Usage: &b/undodelhome}&f: &7Undo your most recent home deletion.'
-      - '&7· ${hover,&bMajekHomes,&7Usage: &b/majekhomes &6[&bhelp&7|&breload&6]}&f: &7Main plugin command.'
-      - '&7&l----------------------------------------------'
+      - "<gray><bold>------------------<blue><bold>Simple<aqua><bold>Homes<gray><bold>------------------"
+      - "<gray>· <hover:show_text:'<gray>Usage: <aqua>/home <gold>[<aqua>player<gray>|<aqua>name<gold>] <gold>[<aqua>name<gold>]'><aqua>Home<gray>: Go to a home."
+      - "<gray>· <hover:show_text:'<gray>Usage: <aqua>/homes <gold>[<aqua>player<gold>]'><aqua>Homes<gray>: List all homes."
+      - "<gray>· <hover:show_text:'<gray>Usage: <aqua>/sethome <gold>[<aqua>name<gold>]'><aqua>SetHome<gray>: Set a home at your current location."
+      - "<gray>· <hover:show_text:'<gray>Usage: <aqua>/delhome <gold>[<aqua>player<gray>|<aqua>name<gold>] <gold>[<aqua>name<gold>]'><aqua>DelHome<gray>: Delete a home."
+      - "<gray>· <hover:show_text:'<gray>Usage: <aqua>/simplehomes <gold>[<aqua>help<gray>|<aqua>reload<gold>]'><aqua>SimpleHomes<gray>: Main plugin command."
+      - "<gray><bold>----------------------------------------------"

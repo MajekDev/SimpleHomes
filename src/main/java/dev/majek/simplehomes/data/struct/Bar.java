@@ -1,5 +1,7 @@
-package dev.majek.homes.data.struct;
+package dev.majek.simplehomes.data.struct;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
@@ -8,7 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
- * Create the teleportation BossBar for /party summon.
+ * Handles teleportation boss bar.
  */
 public class Bar {
 
@@ -28,8 +30,9 @@ public class Bar {
         bar.removePlayer(player);
     }
 
-    public void createBar(int delay, String text) {
-        bar = Bukkit.createBossBar(text, BarColor.BLUE, BarStyle.SOLID);
+    public void createBar(int delay, Component text) {
+        // TODO: Fix this bullshit
+        bar = Bukkit.createBossBar(LegacyComponentSerializer.legacySection().serialize(text), BarColor.BLUE, BarStyle.SOLID);
         bar.setVisible(true);
         cast(delay);
     }

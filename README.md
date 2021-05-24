@@ -1,10 +1,7 @@
 <img align="right" src="https://github.com/Majekdor/MajekHomes/blob/master/majekhomes.png?raw=true" height="200" width="220">
-<h1 align="center">MajekHomes by Majekdor</h1>
+<h1 align="center">SimpleHomes by Majekdor</h1>
 
-MajekHomes is a fully-featured homes plugin currently in development by Majekdor. The plugin has a few goals: be 
-completely open source, make everything configurable, and have as many useful features as possible. I've been playing
-Minecraft for almost a decade and have borrowed everything I liked from a ton of other homes plugins I've seen and
-used during that time.
+SimpleHomes is a stable base homes plugin. It offers all the essential features necessary in a homes plugin and some additional useful permissions. If you're looking for a more featured homes plugin with many more commands/permissions, then you'll want to take a look at UltimateHomes.
 
 ## Support
 

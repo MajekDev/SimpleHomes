@@ -1,4 +1,4 @@
-package dev.majek.homes.data;
+package dev.majek.simplehomes.data;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;

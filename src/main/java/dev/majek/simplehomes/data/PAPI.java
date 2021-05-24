@@ -1,6 +1,6 @@
-package dev.majek.homes.data;
+package dev.majek.simplehomes.data;
 
-import dev.majek.homes.Homes;
+import dev.majek.simplehomes.SimpleHomes;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.clip.placeholderapi.PlaceholderAPIPlugin;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
@@ -8,13 +8,16 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Handles PlaceholderAPI integration
+ */
 public class PAPI extends PlaceholderExpansion {
 
-    private final Homes plugin;
+    private final SimpleHomes plugin;
     private String yes;
     private String no;
 
-    public PAPI(Homes plugin){
+    public PAPI(SimpleHomes plugin){
         this.plugin = plugin;
         try {
             yes = PlaceholderAPIPlugin.booleanTrue();

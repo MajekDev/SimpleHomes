@@ -1,14 +1,14 @@
-name: MajekHomes
+name: SimpleHomes
 version: ${project.version}
-main: dev.majek.homes.Homes
+main: dev.majek.simplehomes.SimpleHomes
 api-version: 1.13
 authors: [ Majekdor ]
-description: Customizable homes plugin with a myriad of useful features.
+description: Base homes plugin with all the essential features.
 website: https://majek.dev
 commands:
-  majekhomes:
-    description: MajekHomes' main (help) command.
-    aliases: [mh]
+  simplehomes:
+    description: SimpleHomes' main (help) command.
+    aliases: [sh]
   home:
     description: Go to a home.
     aliases: [h]
@@ -18,53 +18,44 @@ commands:
   delhome:
     description: Deletes one of your homes.
     aliases: [removehome]
-  movehome:
-    description: Move a specified home to your current location.
   homes:
     description: List all of your homes.
-  undodelhome:
-    description: Undo your most recent home deletion.
-    aliases: [restorehome]
 permissions:
-  majekhomes.sethome:
+  simplehomes.sethome:
     description: Allows players to set a home.
     default: true
-  majekhomes.home:
+  simplehomes.home:
     description: Allows players to go to a home.
     default: true
-  majekhomes.homes:
+  simplehomes.homes:
     description: Allows players to view a list of their homes
     default: true
-  majekhomes.delhome:
+  simplehomes.delhome:
     description: Allows players to delete a home.
     default: true
-  majekhomes.undodelhome:
-    description: Allows players to undo their most recent home deletion.
-    default: true
-  majekhomes.movehome:
-    description: Allows players to move a home.
-    default: true
-  majekhomes.nether:
+  simplehomes.nether:
     description: Allows players to sethomes in the nether dimension.
     default: true
-  majekhomes.end:
+  simplehomes.end:
     description: Allows players to set homes in the end dimension.
     default: true
-  majekhomes.delhome.other:
+  simplehomes.sethome.max:
+    description: Here for tab completion with LuckPerms. Append . and an integer to set max homes.
+  simplehomes.delhome.other:
     description: Allows players to delete another player's home.
     default: op
-  majekhomes.home.other:
+  simplehomes.home.other:
     description: Allows players to travel to another player's home.
     default: op
-  majekhomes.homes.other:
+  simplehomes.homes.other:
     description: Allows players to view other player's homes.
     default: op
-  majekhomes.reload:
+  simplehomes.reload:
     description: Allows players to reload the plugin.
     default: op
-  majekhomes.sethome.unlimited:
+  simplehomes.sethome.unlimited:
     description: Allows players to set unlimited homes.
     default: op
-  majekhomes.delay.bypass:
+  simplehomes.delay.bypass:
     description: Allows players to bypass the teleport delay.
     default: op
