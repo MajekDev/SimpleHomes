@@ -9,6 +9,7 @@ import dev.majek.simplehomes.data.struct.HomesPlayer;
 import dev.majek.simplehomes.mechanic.PlayerJoin;
 import dev.majek.simplehomes.mechanic.PlayerMove;
 import dev.majek.simplehomes.mechanic.PlayerRespawn;
+import org.apache.commons.io.IOUtils;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -16,10 +17,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Main plugin class
@@ -116,10 +122,36 @@ public final class SimpleHomes extends JavaPlugin {
         reloadConfig();
 
         // Initialize lang config
-        YAMLConfig langConfig = new YAMLConfig(SimpleHomes.core(), null, "lang.yml");
+        YAMLConfig langConfig = new YAMLConfig(core, null, "lang.yml");
+        File langFile = new File(core.getDataFolder(), "lang.yml");
         langConfig.saveDefaultConfig();
         langConfig.reloadConfig();
         lang = langConfig.getConfig();
+        // Make sure external lang file has all the keys and values from the internal lang file
+        try {
+            List<String> externalFile = Files.lines(Paths.get(langFile.toURI())).collect(Collectors.toList());
+            List<String> internalFile = IOUtils.readLines(Objects.requireNonNull(getResource("lang.yml")), "UTF-8");
+            for (int i = 0; i < internalFile.size(); i++) {
+                if (externalFile.get(i).startsWith("#") || internalFile.get(i).startsWith("#"))
+                    continue;
+                String externalKey = externalFile.get(i).split(":")[0];
+                String internalKey = internalFile.get(i).split(":")[0];
+                if (!internalKey.equalsIgnoreCase(externalKey))
+                    externalFile.add(i, internalFile.get(i));
+            }
+            FileWriter writer = new FileWriter(langFile);
+            externalFile.forEach(line -> {
+                try {
+                    writer.write(line + "\n");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            writer.close();
+        } catch (IOException ex) {
+            getLogger().severe("Error updating lang.yml");
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -132,7 +164,7 @@ public final class SimpleHomes extends JavaPlugin {
 
     /**
      * Get the SimpleHomes API. Has some useful methods.
-     * @return SimpeHomesAPI.
+     * @return SimpleHomesAPI.
      */
     public static SimpleHomesAPI api() {
         return api;
@@ -147,7 +179,7 @@ public final class SimpleHomes extends JavaPlugin {
     }
 
     /**
-     * Get a {@link HomesPlayer} via a {@link Player} or {@link org.bukkit.OfflinePlayer}'s unique id. May return null.
+     * Get a {@link HomesPlayer} via a {@link Player} or {@link org.bukkit.OfflinePlayer}'s unique id.
      * @param uuid The unique id.
      * @return HomesPlayer if it exists.
      */
@@ -160,6 +192,7 @@ public final class SimpleHomes extends JavaPlugin {
      * @param name The username.
      * @return HomesPlayer if it exists.
      */
+    @Nullable
     public HomesPlayer getHomesPlayer(String name) {
         for (HomesPlayer homesPlayer : userMap.values()) {
             if (homesPlayer.getLastSeenName().equalsIgnoreCase(name))

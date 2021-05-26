@@ -2,9 +2,9 @@ package dev.majek.simplehomes.command;
 
 import dev.majek.simplehomes.SimpleHomes;
 import dev.majek.simplehomes.api.HomeTeleportEvent;
-import dev.majek.simplehomes.data.struct.Bar;
 import dev.majek.simplehomes.data.struct.Home;
 import dev.majek.simplehomes.data.struct.HomesPlayer;
+import dev.majek.simplehomes.data.struct.TeleportBar;
 import dev.majek.simplehomes.util.TabCompleterBase;
 import dev.majek.simplehomes.util.TabExecutor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -78,11 +78,15 @@ public class CommandHome implements TabExecutor {
                 sendMessageWithReplacement(player, "command.home.warmup", "%time%", String.valueOf(tpDelay));
 
                 // Boss bar shizzle
-                Bar bar = new Bar(SimpleHomes.core());
+                TeleportBar bossBar;
+                if (homesPlayer.getBossBar() == null)
+                    bossBar = new TeleportBar(SimpleHomes.core());
+                else
+                    bossBar = homesPlayer.getBossBar();
                 if (SimpleHomes.core().getConfig().getBoolean("use-boss-bar")) {
-                    homesPlayer.setBossBar(bar);
-                    bar.createBar(tpDelay, MiniMessage.get().parse(SimpleHomes.core().getLang().getString("teleportBar", "null")));
-                    bar.addPlayer(player);
+                    homesPlayer.setBossBar(bossBar);
+                    bossBar.createBar(MiniMessage.get().parse(SimpleHomes.core().getLang().getString("teleportBar", "null")));
+                    bossBar.showBar(player, tpDelay);
                 }
 
                 homesPlayer.setNoMove(true);
@@ -90,10 +94,8 @@ public class CommandHome implements TabExecutor {
                     // Don't do this if they did move
                     if (homesPlayer.cannotMove()) {
                         SimpleHomes.core().safeTeleportPlayer(player, tpEvent.teleportingTo());
-                        if (SimpleHomes.core().getConfig().getBoolean("use-boss-bar")) {
-                            bar.removePlayer(player);
-                            homesPlayer.setBossBar(null);
-                        }
+                        if (SimpleHomes.core().getConfig().getBoolean("use-boss-bar"))
+                            bossBar.hideBar();
                         sendMessageWithReplacement(player, "command.home.teleportedHome", "%name%", homeName);
                         homesPlayer.setNoMove(false);
                     }
@@ -144,21 +146,23 @@ public class CommandHome implements TabExecutor {
                 homesPlayer.setNoMove(true);
 
                 // Boss bar shizzle
-                Bar bar = new Bar(SimpleHomes.core());
+                TeleportBar bossBar;
+                if (target.getBossBar() == null)
+                    bossBar = new TeleportBar(SimpleHomes.core());
+                else
+                    bossBar = target.getBossBar();
                 if (SimpleHomes.core().getConfig().getBoolean("use-boss-bar")) {
-                    homesPlayer.setBossBar(bar);
-                    bar.createBar(tpDelay, MiniMessage.get().parse(SimpleHomes.core().getLang().getString("teleportBar", "null")));
-                    bar.addPlayer(player);
+                    homesPlayer.setBossBar(bossBar);
+                    bossBar.createBar(MiniMessage.get().parse(SimpleHomes.core().getLang().getString("teleportBar", "null")));
+                    bossBar.showBar(player, tpDelay);
                 }
 
                 int taskID = SimpleHomes.core().getServer().getScheduler().runTaskLater(SimpleHomes.core(), () -> {
                     // Don't do this if they did move
                     if (homesPlayer.cannotMove()) {
                         SimpleHomes.core().safeTeleportPlayer(player, tpEvent.teleportingTo());
-                        if (SimpleHomes.core().getConfig().getBoolean("use-boss-bar")) {
-                            bar.removePlayer(player);
-                            homesPlayer.setBossBar(null);
-                        }
+                        if (SimpleHomes.core().getConfig().getBoolean("use-boss-bar"))
+                            bossBar.hideBar();
                         sendMessageWithReplacements(player, "command.home.teleportedOther", "%name%", homeName,
                                 "%player%", target.getLastSeenName());
                         homesPlayer.setNoMove(false);
@@ -178,7 +182,7 @@ public class CommandHome implements TabExecutor {
                 HomesPlayer homesPlayer = SimpleHomes.core().getHomesPlayer(player.getUniqueId());
                 return TabCompleterBase.filterStartingWith(args[0], homesPlayer.getHomes().stream().map(Home::name)
                         .collect(Collectors.toList()));
-            } else if (args.length == 2 && player.hasPermission("simplehomes.homes.others")) {
+            } else if (args.length == 2 && player.hasPermission("simplehomes.homes.other")) {
                 HomesPlayer homesPlayer = SimpleHomes.core().getHomesPlayer(args[0]);
                 if (homesPlayer != null)
                     return TabCompleterBase.filterStartingWith(args[1], homesPlayer.getHomes().stream().map(Home::name)

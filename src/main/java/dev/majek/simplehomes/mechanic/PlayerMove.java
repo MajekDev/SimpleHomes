@@ -1,8 +1,8 @@
 package dev.majek.simplehomes.mechanic;
 
 import dev.majek.simplehomes.SimpleHomes;
-import dev.majek.simplehomes.data.struct.Bar;
 import dev.majek.simplehomes.data.struct.HomesPlayer;
+import dev.majek.simplehomes.data.struct.TeleportBar;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,9 +26,8 @@ public class PlayerMove implements Listener {
         if (homesPlayer.cannotMove()) {
             homesPlayer.setNoMove(false);
             if (SimpleHomes.core().getConfig().getBoolean("use-boss-bar")) {
-                Bar bar = homesPlayer.getBossBar();
-                bar.removePlayer(player);
-                bar.removeBar();
+                TeleportBar bar = homesPlayer.getBossBar();
+                bar.hideBar();
             }
             SimpleHomes.core().getServer().getScheduler().cancelTask(homesPlayer.getBossBarTaskID());
             String message = SimpleHomes.core().getLang().getString("command.home.teleportationCancelled", "null");

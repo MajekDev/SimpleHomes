@@ -154,7 +154,7 @@ public class CommandHomes implements TabExecutor {
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            if (args.length == 1 && player.hasPermission("simplehomes.homes.others")) {
+            if (args.length == 1 && player.hasPermission("simplehomes.homes.other")) {
                 return TabCompleterBase.getOnlinePlayers(args[0]);
             } else
                 return Collections.emptyList();
@@ -182,13 +182,13 @@ public class CommandHomes implements TabExecutor {
         private final Map<Integer, Component> pageMap;
 
         // Config values
-        public String PAGE = getConfigString("command.homes.page");
-        public String PREV = getConfigString("command.homes.prev");
-        public String PREVIOUS_PAGE = getConfigString("command.homes.previousPage");
-        public String NO_PREVIOUS_PAGE = getConfigString("command.homes.noPreviousPage");
-        public String NEXT = getConfigString("command.homes.next");
-        public String NEXT_PAGE = getConfigString("command.homes.nextPage");
-        public String NO_NEXT_PAGE = getConfigString("command.homes.noNextPage");
+        public final String PAGE = getConfigString("command.homes.page");
+        public final String PREV = getConfigString("command.homes.prev");
+        public final String PREVIOUS_PAGE = getConfigString("command.homes.previousPage");
+        public final String NO_PREVIOUS_PAGE = getConfigString("command.homes.noPreviousPage");
+        public final String NEXT = getConfigString("command.homes.next");
+        public final String NEXT_PAGE = getConfigString("command.homes.nextPage");
+        public final String NO_NEXT_PAGE = getConfigString("command.homes.noNextPage");
 
         /**
          * Generate pagination for when there is a long list of values to display in chat.

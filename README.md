@@ -7,7 +7,7 @@ SimpleHomes is a stable base homes plugin. It offers all the essential features 
 
 If you need help with the plugin and can't find the answer here, on the [wiki](https://github.com/Majekdor/MajekHomes/wiki), or on Spigot, then the best way to get help is to join my [Discord](https://discord.gg/CGgvDUz). Make sure you read the frequently-asked channel before posting in the bug-reports channel (if it's a bug) or in the majek-homes channel (for general help).
 
-If you have discovered a bug you can either join my [Discord](https://discord.gg/CGgvDUz) and report it there or open an issue here on GitHub. Please do not message me on Spigot in regards to bugs, there are easier ways to communicate.
+If you have discovered a bug you can either join my [Discord](https://discord.gg/CGgvDUz) and report it there or open an issue here on GitHub. Please do not message me on Spigot in regard to a bug, there are easier ways to communicate.
 
 
 ## Contributing

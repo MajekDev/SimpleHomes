@@ -24,7 +24,7 @@ public class HomesPlayer {
     private int maxHomes;
     private final JSONConfig dataStorage;
     private boolean noMove;
-    private Bar bossBar;
+    private TeleportBar bossBar;
     private int bossBarTaskID;
 
     /**
@@ -47,6 +47,7 @@ public class HomesPlayer {
                 .getInt("default-max-homes", 1));
         updateMaxHomes(player);
         this.noMove = false;
+        this.bossBar = null;
     }
 
     /**
@@ -66,6 +67,7 @@ public class HomesPlayer {
         }
         this.maxHomes = fileContents.get("max-homes").getAsInt();
         this.noMove = false;
+        this.bossBar = null;
     }
 
     /**
@@ -267,14 +269,14 @@ public class HomesPlayer {
      * Get the player's boss bar if there is one. May be null. Used internally to cancel boss bar on move.
      * @return Boss bar.
      */
-    public Bar getBossBar() {
+    public TeleportBar getBossBar() {
         return bossBar;
     }
 
     /**
      * Set the player's boss bar. Used internally to cancel boss bar on move.
      */
-    public void setBossBar(Bar bossBar) {
+    public void setBossBar(TeleportBar bossBar) {
         this.bossBar = bossBar;
     }
 
