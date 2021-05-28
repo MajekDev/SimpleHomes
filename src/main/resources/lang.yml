@@ -13,6 +13,7 @@ command:
     noMoreHomes: "<gray>You cannot set any more homes! Use <aqua>/delhome <gold>\\<<aqua>name<gold>\\><gray> to remove a home. (Limit: <aqua>%limit%<gray>)"
     nameAlreadyExists: "<gray>You already have a home with the name <aqua>%name%<gray>! Try again with a different name."
     nonAlphanumeric: "<gray>Your home name must be alphanumeric! Please choose a different name."
+    worldNotAllowed: "<gray>You are not allowed to set homes in this world!"
   home:
     usage: "<gray>Usage: <aqua>/home <gold>[<aqua>name<gold>]"
     noHomes: "<gray>You do not have any homes set! Set one with <aqua>/sethome <gold>[<aqua>name<gold>]"

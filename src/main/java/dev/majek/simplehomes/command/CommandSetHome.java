@@ -5,8 +5,10 @@ import dev.majek.simplehomes.api.HomeSetEvent;
 import dev.majek.simplehomes.data.struct.Home;
 import dev.majek.simplehomes.data.struct.HomesPlayer;
 import dev.majek.simplehomes.util.TabExecutor;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -37,6 +39,14 @@ public class CommandSetHome implements TabExecutor {
         // Check if the player has permission
         if (!player.hasPermission("simplehomes.sethome")) {
             sendMessage(player, "command.noPermission");
+            return true;
+        }
+
+        // If player is in the nether/end they must have permission to set a home
+        if ((!player.hasPermission("simplehomes.nether") && player.getLocation().getWorld().getEnvironment()
+                .equals(World.Environment.NETHER)) || (!player.hasPermission("simplehomes.end") && player
+                .getLocation().getWorld().getEnvironment().equals(World.Environment.THE_END))) {
+            sendMessage(player, "command.sethome.worldNotAllowed");
             return true;
         }
 
