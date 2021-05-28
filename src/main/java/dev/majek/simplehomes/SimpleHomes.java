@@ -10,6 +10,7 @@ import dev.majek.simplehomes.mechanic.PlayerJoin;
 import dev.majek.simplehomes.mechanic.PlayerMove;
 import dev.majek.simplehomes.mechanic.PlayerRespawn;
 import org.apache.commons.io.IOUtils;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -82,7 +83,7 @@ public final class SimpleHomes extends JavaPlugin {
         }
 
         // Metrics
-        new Metrics(this, 11237);
+        new Metrics(this, 11490);
 
         // Set command executors and tab completers
         registerCommands();

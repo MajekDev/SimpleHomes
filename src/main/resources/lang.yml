@@ -10,16 +10,16 @@ command:
   sethome:
     usage: "<gray>Usage: <aqua>/sethome <gold><</gold><aqua>name<gold>>"
     createdHome: "<gray>Set a home with name <aqua>%name%<gray> at your current location."
-    noMoreHomes: "<gray>You cannot set any more homes! Use <aqua>/delhome <gold><<aqua>name<gold>><gray> to remove a home. (Limit: <aqua>%limit%<gray>)"
+    noMoreHomes: "<gray>You cannot set any more homes! Use <aqua>/delhome <gold>\\<<aqua>name<gold>\\><gray> to remove a home. (Limit: <aqua>%limit%<gray>)"
     nameAlreadyExists: "<gray>You already have a home with the name <aqua>%name%<gray>! Try again with a different name."
     nonAlphanumeric: "<gray>Your home name must be alphanumeric! Please choose a different name."
   home:
     usage: "<gray>Usage: <aqua>/home <gold>[<aqua>name<gold>]"
-    noHomes: "<gray>You do not have any homes set! Set one with <aqua>/sethome <gold><<aqua>name<gold>>"
+    noHomes: "<gray>You do not have any homes set! Set one with <aqua>/sethome <gold>[<aqua>name<gold>]"
     invalidHome: "<gray>You do not have a home named <aqua>%name%<gray>. Type <aqua>/homes<gray> to see your homes."
     teleportedHome: "<gray>Teleported to home <aqua>%name%<gray>."
     teleportedOther: "<gray>Teleported to home <aqua>%name%<gray> belonging to <aqua>%player%<gray>."
-    invalidHomeOther: "<aqua>%player%<gray> does not have a home named <aqua>%name%<gray>. Type <aqua>/homes <gold><<aqua>player<gold>><gray> to see their homes."
+    invalidHomeOther: "<aqua>%player%<gray> does not have a home named <aqua>%name%<gray>. Type <aqua>/homes <gold>\\<<aqua>player<gold>\\><gray> to see their homes."
     warmup: "<gray>Teleporting in <aqua>%time% <gray>seconds. Do not move..."
     teleportationCancelled: "<gray>You moved! Teleportation canceled."
     wait: "<gray>You cannot run this command right now."
@@ -36,7 +36,7 @@ command:
     noNextPage: "<gray>No next page"
     clickToTravel: "<aqua>Click to teleport home"
     invalidPage: "<gray>Invalid page number. Must be between 1 and %max%."
-    noHomes: "<gray>You do not have any homes set! Set one with <aqua>/sethome <gold><<aqua>name<gold>>"
+    noHomes: "<gray>You do not have any homes set! Set one with <aqua>/sethome <gold>[<aqua>name<gold>]"
     noHomesOther: "<aqua>%player%<gray> does not have any homes set."
   delhome:
     usage: "<gray>Usage: <aqua>/delhome <gold>[<aqua>player<gold>] <gold><</gold><aqua>name<gold>>"
