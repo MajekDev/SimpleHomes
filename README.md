@@ -34,6 +34,16 @@ These are only given to opped players automatically:
 
 To set a player's max homes limit with permissions use `simplehomes.sethome.max.<integer>`, replacing `<integer>` with the number of max homes.
 
+## Configuration
+
+The default `config.yml` is available [here](https://github.com/Majekdor/SimpleHomes/blob/master/src/main/resources/config.yml) where a handful of configuration options can be changed. To make these changes take effect run `/simplehomes reload`. If you have questions about the configuration or want to suggest a new configuration option you can discuss that in [Discord](https://discord.majek.dev).
+
+All messages sent by SimpleHomes are stored in the `lang.yml` file [here](https://github.com/Majekdor/SimpleHomes/blob/master/src/main/resources/lang.yml) and can be changed/translated. Color codes and other formatting are done using [MiniMessage](https://docs.adventure.kyori.net/minimessage.html#the-components). Legacy color codes (`&c`, `&l`, etc.) will not work. Those are being removed from Minecraft entirely in the near future.
+
+## For the nerds... I meean devs :P
+
+SimpleHomes stores homes using JSON. When the plugin is installed the `playerdata` folder is created and every player has a file named with their unique id. When homes are set/deleted the file updates in real time. The plugin also depends heavily on [adventure](https://github.com/KyoriPowered/adventure) by Kyori for components in chat. SimpleHomes has an API and documentation for that is coming.
+
 ## Support
 
 If you need help with the plugin and can't find the answer here or on Spigot, then the best way to get help is to join my [Discord](https://discord.gg/CGgvDUz). Make sure you read the frequently-asked channel before posting in the bug-reports channel (if it's a bug) or in the simple-homes channel (for general help).
