@@ -22,7 +22,17 @@ These are given to all players automatically, but can be negated with a permissi
 - `simplehomes.homes` - Allows players to view a list of their homes.
 - `simplehomes.delhome` - Allows players to delete one of their homes.
 - `simplehomes.nether` - Allows players to set homes in the nether dimension.
-- `simplehomes.end:` - Allows players to set homes in the end dimension.
+- `simplehomes.end` - Allows players to set homes in the end dimension.
+
+These are only given to opped players automatically:
+- `simplehomes.delhome.other` - Allows players to delete another player's home.
+- `simplehomes.home.other` - Allows players to travel to another player's home.
+- `simplehomes.homes.other` - Allows players to view other player's homes.
+- `simplehomes.reload` - Allows players to reload the plugin.
+- `simplehomes.sethome.unlimited` - Allows players to set unlimited homes.
+- `simplehomes.delay.bypass` - Allows players to bypass the teleport delay.
+
+To set a player's max homes limit with permissions use `simplehomes.sethome.max.<integer>`, replacing `<integer>` with the number of max homes.
 
 ## Support
 
