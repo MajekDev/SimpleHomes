@@ -1,4 +1,4 @@
-<img align="right" src="https://github.com/Majekdor/SimpleHomes/blob/master/simplehomes.png?raw=true" height="200" width="220">
+<img align="right" src="https://github.com/Majekdor/SimpleHomes/blob/master/img/logo.png?raw=true" height="200" width="220">
 <h1 align="center">SimpleHomes by Majekdor</h1>
 
 SimpleHomes is a stable base homes plugin. It offers all the essential features necessary in a homes plugin and some additional useful permissions. If you're looking for a more featured homes plugin with many more commands/permissions, then you'll want to take a look at UltimateHomes.
