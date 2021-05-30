@@ -34,6 +34,8 @@ These are only given to opped players automatically:
 
 To set a player's max homes limit with permissions use `simplehomes.sethome.max.<integer>`, replacing `<integer>` with the number of max homes.
 
+> Note: If you set a lower home limit than what has been set before, the lower limit will not overwrite the higher limit. Meaning if a player has, for example, a home limit of 5 and you set it to 3 via permissions, it will remain 5. To lower it you must manually edit the player's JSON file. 
+
 ## Configuration
 
 The default `config.yml` is available [here](https://github.com/Majekdor/SimpleHomes/blob/master/src/main/resources/config.yml) where a handful of configuration options can be changed. To make these changes take effect run `/simplehomes reload`. If you have questions about the configuration or want to suggest a new configuration option you can discuss that in [Discord](https://discord.majek.dev).
