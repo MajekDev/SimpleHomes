@@ -6,17 +6,24 @@
 
     <groupId>dev.majek.simplehomes</groupId>
     <artifactId>SimpleHomes</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
 
     <name>SimpleHomes</name>
 
     <description>Base homes plugin with all the essential features.</description>
     <properties>
-        <maven.compiler.release>11</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <url>https://majek.dev</url>
+
+    <distributionManagement>
+        <repository>
+            <id>majek-repo</id>
+            <name>Majekdor repository</name>
+            <url>https://repo.majek.dev/releases/</url>
+        </repository>
+    </distributionManagement>
 
     <build>
         <plugins>
@@ -25,7 +32,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <release>11</release>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
             <plugin>

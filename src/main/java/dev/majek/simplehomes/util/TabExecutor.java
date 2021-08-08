@@ -12,7 +12,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 /**
- * Same as {@link org.bukkit.command.TabExecutor} but with some methods for message sending
+ * Same as {@link org.bukkit.command.TabExecutor} but with some methods for message sending.
  */
 public interface TabExecutor extends TabCompleter, CommandExecutor {
 
