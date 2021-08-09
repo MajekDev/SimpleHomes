@@ -129,7 +129,7 @@
         <dependency>
             <groupId>me.lucko</groupId>
             <artifactId>adventure-platform-bukkit</artifactId>
-            <version>4.7.0</version>
+            <version>4.8.1</version>
             <scope>compile</scope>
         </dependency>
         <!-- Adventure MiniMessage -->
