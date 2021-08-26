@@ -62,8 +62,14 @@ public class HomesPlayer {
         this.homes = new HashMap<>();
         if (fileContents.get("homes") != null) {
             JsonObject homesJson = fileContents.get("homes").getAsJsonObject();
-            for (Map.Entry<String, JsonElement> entry : homesJson.entrySet())
-                addHome(new Home(entry.getKey(), entry.getValue().getAsJsonObject()));
+            for (Map.Entry<String, JsonElement> entry : homesJson.entrySet()) {
+                try {
+                    Home newHome = new Home(entry.getKey(), entry.getValue().getAsJsonObject());
+                    addHome(newHome);
+                } catch (IllegalArgumentException ex) {
+                    ex.printStackTrace();
+                }
+            }
         }
         this.maxHomes = fileContents.get("max-homes").getAsInt();
         this.noMove = false;

@@ -1,6 +1,7 @@
 package dev.majek.simplehomes.data.struct;
 
 import com.google.gson.*;
+import dev.majek.simplehomes.SimpleHomes;
 import org.bukkit.Location;
 
 import java.util.Map;
@@ -35,9 +36,15 @@ public class Home {
      * @param serializedLocation Serialized {@link Location} using {@link Location#serialize()}.
      */
     @SuppressWarnings("unchecked")
-    public Home(String name, JsonObject serializedLocation) {
+    public Home(String name, JsonObject serializedLocation) throws IllegalArgumentException {
         this.name = name;
-        this.location = Location.deserialize(new Gson().fromJson(serializedLocation, Map.class));
+        try {
+            this.location = Location.deserialize(new Gson().fromJson(serializedLocation, Map.class));
+        } catch (IllegalArgumentException ex) {
+            throw new IllegalArgumentException("It appears you've either deleted or changed the " +
+                "name of one of your worlds. Please either change it back or manually change the world names" +
+                "stored in user files in the playerdata folder. Need help? https://discord.majek.dev");
+        }
     }
 
     /**
