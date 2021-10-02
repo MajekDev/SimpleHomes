@@ -2,6 +2,7 @@ package dev.majek.simplehomes;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.tchristofferson.configupdater.ConfigUpdater;
 import dev.majek.simplehomes.api.SimpleHomesAPI;
 import dev.majek.simplehomes.command.*;
 import dev.majek.simplehomes.data.*;
@@ -9,7 +10,6 @@ import dev.majek.simplehomes.data.struct.HomesPlayer;
 import dev.majek.simplehomes.mechanic.PlayerJoin;
 import dev.majek.simplehomes.mechanic.PlayerMove;
 import dev.majek.simplehomes.mechanic.PlayerRespawn;
-import org.apache.commons.io.IOUtils;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -21,12 +21,8 @@ import org.bukkit.util.Vector;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Main plugin class
@@ -126,33 +122,13 @@ public final class SimpleHomes extends JavaPlugin {
         YAMLConfig langConfig = new YAMLConfig(core, null, "lang.yml");
         File langFile = new File(core.getDataFolder(), "lang.yml");
         langConfig.saveDefaultConfig();
+        try {
+            ConfigUpdater.update(core, "lang.yml", langFile, Collections.emptyList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         langConfig.reloadConfig();
         lang = langConfig.getConfig();
-        // Make sure external lang file has all the keys and values from the internal lang file
-        try {
-            List<String> externalFile = Files.lines(Paths.get(langFile.toURI())).collect(Collectors.toList());
-            List<String> internalFile = IOUtils.readLines(Objects.requireNonNull(getResource("lang.yml")), "UTF-8");
-            for (int i = 0; i < internalFile.size(); i++) {
-                if (externalFile.get(i).startsWith("#") || internalFile.get(i).startsWith("#"))
-                    continue;
-                String externalKey = externalFile.get(i).split(":")[0];
-                String internalKey = internalFile.get(i).split(":")[0];
-                if (!internalKey.equalsIgnoreCase(externalKey))
-                    externalFile.add(i, internalFile.get(i));
-            }
-            FileWriter writer = new FileWriter(langFile);
-            externalFile.forEach(line -> {
-                try {
-                    writer.write(line + "\n");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-            writer.close();
-        } catch (IOException ex) {
-            getLogger().severe("Error updating lang.yml");
-            ex.printStackTrace();
-        }
     }
 
     /**
