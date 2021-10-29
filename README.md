@@ -1,4 +1,4 @@
-<img align="right" src="https://github.com/Majekdor/SimpleHomes/blob/master/img/logo.png?raw=true" height="200" width="220">
+<img align="right" src="https://github.com/MajekDev/SimpleHomes/blob/main/img/logo.png?raw=true" height="200" width="220">
 <h1 align="center">SimpleHomes by Majekdor</h1>
 
 SimpleHomes is a stable base homes plugin. It offers all the essential features necessary in a homes plugin and some additional useful permissions. If you're looking for a more featured homes plugin with many more commands/permissions, then you'll want to take a look at UltimateHomes.
@@ -38,9 +38,9 @@ To set a player's max homes limit with permissions use `simplehomes.sethome.max.
 
 ## Configuration
 
-The default `config.yml` is available [here](https://github.com/Majekdor/SimpleHomes/blob/master/src/main/resources/config.yml) where a handful of configuration options can be changed. To make these changes take effect run `/simplehomes reload`. If you have questions about the configuration or want to suggest a new configuration option you can discuss that in [Discord](https://discord.majek.dev).
+The default `config.yml` is available [here](https://github.com/MajekDev/SimpleHomes/blob/main/src/main/resources/config.yml) where a handful of configuration options can be changed. To make these changes take effect run `/simplehomes reload`. If you have questions about the configuration or want to suggest a new configuration option you can discuss that in [Discord](https://discord.majek.dev).
 
-All messages sent by SimpleHomes are stored in the `lang.yml` file [here](https://github.com/Majekdor/SimpleHomes/blob/master/src/main/resources/lang.yml) and can be changed/translated. Color codes and other formatting are done using [MiniMessage](https://docs.adventure.kyori.net/minimessage.html#the-components). Legacy color codes (`&c`, `&l`, etc.) will not work. Those are being removed from Minecraft entirely in the near future.
+All messages sent by SimpleHomes are stored in the `lang.yml` file [here](https://github.com/MajekDev/SimpleHomes/blob/main/src/main/resources/lang.yml) and can be changed/translated. Color codes and other formatting are done using [MiniMessage](https://docs.adventure.kyori.net/minimessage.html#the-components). Legacy color codes (`&c`, `&l`, etc.) will not work. Those are being removed from Minecraft entirely in the near future.
 
 ## For the nerds... I meean devs :P
 
@@ -55,7 +55,7 @@ If you have discovered a bug you can either join my [Discord](https://discord.gg
 
 ## Contributing
 
-SimpleHomes is open-source and licensed under the [MIT License](https://github.com/Majekdor/SimpleHomes/blob/main/LICENSE), so if you want to use any code contained in the plugin or clone the repository and make some changes, go ahead!
+SimpleHomes is open-source and licensed under the [MIT License](https://github.com/MajekDev/SimpleHomes/blob/main/LICENSE), so if you want to use any code contained in the plugin or clone the repository and make some changes, go ahead!
 
 If you've found a bug within the plugin and would like to just make the changes to fix it yourself, you're free to do so and make a pull request here on GitHub. If you make significant contributions to the project, and by significant I mean one little PR to fix a tiny bug doesn't count as significant, you can earn the Contributor role in my [Discord](https://discord.gg/CGgvDUz).
 
