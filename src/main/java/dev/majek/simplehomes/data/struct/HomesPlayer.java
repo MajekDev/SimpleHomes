@@ -38,7 +38,6 @@ public class HomesPlayer {
             dataStorage.createConfig();
         } catch (FileNotFoundException e) {
             SimpleHomes.core().getLogger().severe("Error creating data storage for " + player.getName() + "!");
-            e.printStackTrace();
         }
         setUuid(player.getUniqueId());
         setLastSeenName(player.getName());
@@ -67,7 +66,9 @@ public class HomesPlayer {
                     Home newHome = new Home(entry.getKey(), entry.getValue().getAsJsonObject());
                     addHome(newHome);
                 } catch (IllegalArgumentException ex) {
-                    ex.printStackTrace();
+                    SimpleHomes.core().getLogger().severe(
+                        "Error parsing home data for player " + lastSeenName + ": " + ex.getMessage()
+                    );
                 }
             }
         }
@@ -85,7 +86,7 @@ public class HomesPlayer {
         try {
             dataStorage.putInJsonObject("uuid", uuid.toString());
         } catch (IOException e) {
-            e.printStackTrace();
+            SimpleHomes.core().getLogger().severe("Failed to save UUID for player " + lastSeenName);
         }
     }
 
@@ -114,7 +115,7 @@ public class HomesPlayer {
         try {
             dataStorage.putInJsonObject("last-seen-as", lastSeenName);
         } catch (IOException e) {
-            e.printStackTrace();
+            SimpleHomes.core().getLogger().severe("Failed to save last seen name for player " + lastSeenName);
         }
     }
 
@@ -141,7 +142,7 @@ public class HomesPlayer {
      * @return Total homes.
      */
     public int getTotalHomes() {
-        return homes.values().size();
+        return homes.size();
     }
 
     /**
@@ -161,7 +162,7 @@ public class HomesPlayer {
                     home.locAsJsonObject());
             dataStorage.putInJsonObject("homes", homes);
         } catch (IOException e) {
-            e.printStackTrace();
+            SimpleHomes.core().getLogger().severe("Failed to add home for player " + lastSeenName);
         }
     }
 
@@ -176,7 +177,7 @@ public class HomesPlayer {
             homes.remove(home.name());
             dataStorage.putInJsonObject("homes", homes);
         } catch (IOException e) {
-            e.printStackTrace();
+            SimpleHomes.core().getLogger().severe("Failed to remove home for player " + lastSeenName);
         }
     }
 
@@ -226,7 +227,7 @@ public class HomesPlayer {
         try {
             dataStorage.putInJsonObject("max-homes", maxHomes);
         } catch (IOException e) {
-            e.printStackTrace();
+            SimpleHomes.core().getLogger().severe("Failed to set max homes for player " + lastSeenName);
         }
     }
 

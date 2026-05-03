@@ -80,6 +80,7 @@ public class HomeTeleportEvent extends Event implements Cancellable {
      * Set where the {@link #player()} is teleporting to.
      * @param teleportingTo Teleport location.
      */
+    @SuppressWarnings("unused")
     public void teleportingTo(Location teleportingTo) {
         this.teleportingTo = teleportingTo;
     }
@@ -88,6 +89,7 @@ public class HomeTeleportEvent extends Event implements Cancellable {
      * The location the {@link #player()} is teleporting from. This cannot be changed.
      * @return Previous location.
      */
+    @SuppressWarnings("unused")
     public Location teleportingFrom() {
         return teleportingFrom;
     }
@@ -104,6 +106,7 @@ public class HomeTeleportEvent extends Event implements Cancellable {
      * Set whether or not the {@link #player()} should teleport without a delay.
      * @param hasTeleportDelay Teleport delay?
      */
+    @SuppressWarnings("unused")
     public void hasTeleportDelay(boolean hasTeleportDelay) {
         this.hasTeleportDelay = hasTeleportDelay;
     }
@@ -120,6 +123,7 @@ public class HomeTeleportEvent extends Event implements Cancellable {
      * Set the teleport delay for the teleporting {@link #player()}.
      * @param teleportDelay Teleport delay.
      */
+    @SuppressWarnings("unused")
     public void teleportDelay(int teleportDelay) {
         this.teleportDelay = teleportDelay;
     }
@@ -128,6 +132,7 @@ public class HomeTeleportEvent extends Event implements Cancellable {
      * Whether or not the {@link #player()} is teleporting to their own {@link #home()}.
      * @return Own home?
      */
+    @SuppressWarnings("unused")
     public boolean toOwnHome() {
         return toOwnHome;
     }
@@ -155,7 +160,4 @@ public class HomeTeleportEvent extends Event implements Cancellable {
         return HANDLER_LIST;
     }
 
-    public static HandlerList getHandlerList() {
-        return HANDLER_LIST;
-    }
 }

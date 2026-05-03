@@ -76,8 +76,4 @@ public class HomeSetEvent extends Event implements Cancellable {
     public @NotNull HandlerList getHandlers() {
         return HANDLER_LIST;
     }
-
-    public static HandlerList getHandlerList() {
-        return HANDLER_LIST;
-    }
 }

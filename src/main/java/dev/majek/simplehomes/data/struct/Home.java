@@ -1,7 +1,6 @@
 package dev.majek.simplehomes.data.struct;
 
 import com.google.gson.*;
-import dev.majek.simplehomes.SimpleHomes;
 import org.bukkit.Location;
 
 import java.util.Map;
@@ -75,6 +74,7 @@ public class Home {
      * Set the location of the home.
      * @param location New location.
      */
+    @SuppressWarnings("unused")
     public void location(Location location) {
         this.location = location;
     }

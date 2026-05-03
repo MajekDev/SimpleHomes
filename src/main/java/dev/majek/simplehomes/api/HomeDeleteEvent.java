@@ -62,6 +62,7 @@ public class HomeDeleteEvent extends Event implements Cancellable {
      * Whether or not the {@link #player()} is attempting to delete a home that belongs to them.
      * @return Own home?
      */
+    @SuppressWarnings("unused")
     public boolean deletingOwnHome() {
         return deletingOwnHome;
     }
@@ -86,10 +87,6 @@ public class HomeDeleteEvent extends Event implements Cancellable {
 
     @Override
     public @NotNull HandlerList getHandlers() {
-        return HANDLER_LIST;
-    }
-
-    public static HandlerList getHandlerList() {
         return HANDLER_LIST;
     }
 }

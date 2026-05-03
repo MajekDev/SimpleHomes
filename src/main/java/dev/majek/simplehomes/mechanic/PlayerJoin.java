@@ -13,8 +13,9 @@ public class PlayerJoin implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        if (!SimpleHomes.core().getUserMap().containsKey(event.getPlayer().getUniqueId()))
+        if (!SimpleHomes.core().getUserMap().containsKey(event.getPlayer().getUniqueId())) {
             SimpleHomes.core().addToUserMap(new HomesPlayer(event.getPlayer()));
+        }
         HomesPlayer homesPlayer = SimpleHomes.core().getHomesPlayer(event.getPlayer().getUniqueId());
         homesPlayer.setLastSeenName(event.getPlayer().getName());
     }

@@ -24,7 +24,12 @@ import java.util.stream.Collectors;
 public class CommandHome implements TabExecutor {
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public boolean onCommand(
+        @NotNull CommandSender sender,
+        @NotNull Command command,
+        @NotNull String label,
+        @NotNull String @NotNull [] args
+    ) {
         // Console cannot go to homes
         if (!(sender instanceof Player)) {
             sendMessage(sender, "command.invalidSender");
@@ -85,7 +90,7 @@ public class CommandHome implements TabExecutor {
                     bossBar = homesPlayer.getBossBar();
                 if (SimpleHomes.core().getConfig().getBoolean("use-boss-bar")) {
                     homesPlayer.setBossBar(bossBar);
-                    bossBar.createBar(MiniMessage.get().parse(SimpleHomes.core().getLang().getString("teleportBar", "null")));
+                    bossBar.createBar(MiniMessage.miniMessage().deserialize(SimpleHomes.core().getLang().getString("teleportBar", "null")));
                     bossBar.showBar(player, tpDelay);
                 }
 
@@ -153,7 +158,7 @@ public class CommandHome implements TabExecutor {
                     bossBar = target.getBossBar();
                 if (SimpleHomes.core().getConfig().getBoolean("use-boss-bar")) {
                     homesPlayer.setBossBar(bossBar);
-                    bossBar.createBar(MiniMessage.get().parse(SimpleHomes.core().getLang().getString("teleportBar", "null")));
+                    bossBar.createBar(MiniMessage.miniMessage().deserialize(SimpleHomes.core().getLang().getString("teleportBar", "null")));
                     bossBar.showBar(player, tpDelay);
                 }
 
@@ -175,7 +180,12 @@ public class CommandHome implements TabExecutor {
     }
 
     @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
+    public @Nullable List<String> onTabComplete(
+        @NotNull CommandSender sender,
+        @NotNull Command command,
+        @NotNull String alias,
+        @NotNull String @NotNull [] args
+    ) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             if (args.length == 1) {

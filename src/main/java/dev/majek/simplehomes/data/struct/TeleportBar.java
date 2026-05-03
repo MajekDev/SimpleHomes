@@ -1,5 +1,6 @@
 package dev.majek.simplehomes.data.struct;
 
+import dev.majek.simplehomes.SimpleHomes;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
@@ -27,19 +28,23 @@ public class TeleportBar {
     }
 
     public void showBar(Player player, int length) {
-        audience = BukkitAudiences.create(plugin).player(player);
-        audience.showBossBar(bossBar);
-        taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
-            final double time = 1.0 / (length * 20);
-            @Override
-            public void run() {
-                if ((bossBar.progress() - time) <= 0.0) {
-                    Bukkit.getScheduler().cancelTask(taskID);
-                    return;
+        try (BukkitAudiences audiences = BukkitAudiences.create(plugin)) {
+            audience = audiences.player(player);
+            audience.showBossBar(bossBar);
+            taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+                final double time = 1.0 / (length * 20);
+                @Override
+                public void run() {
+                    if ((bossBar.progress() - time) <= 0.0) {
+                        Bukkit.getScheduler().cancelTask(taskID);
+                        return;
+                    }
+                    bossBar.progress((float) (bossBar.progress() - time));
                 }
-                bossBar.progress((float) (bossBar.progress() - time));
-            }
-        }, 0 ,0);
+            }, 0 ,0);
+        } catch (Exception ex) {
+            SimpleHomes.core().getLogger().warning("Failed to create teleport bar for player: " + player.getName());
+        }
     }
 
     public void hideBar() {

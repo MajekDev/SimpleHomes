@@ -33,7 +33,7 @@ public class PlayerMove implements Listener {
             String message = SimpleHomes.core().getLang().getString("command.home.teleportationCancelled", "null");
             if (SimpleHomes.core().getConfig().getBoolean("use-prefix"))
                 message = SimpleHomes.core().getLang().getString("prefix") + " " + message;
-            player.sendMessage(MiniMessage.get().parse(message));
+            player.sendMessage(MiniMessage.miniMessage().deserialize(message));
         }
     }
 }

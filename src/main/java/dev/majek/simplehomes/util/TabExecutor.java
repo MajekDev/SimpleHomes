@@ -32,7 +32,7 @@ public interface TabExecutor extends TabCompleter, CommandExecutor {
     default void sendFormattedMessage(CommandSender sender, String message) {
         if (SimpleHomes.core().hasPapi && (sender instanceof Player))
             message = PAPI.applyPlaceholders((Player) sender, message);
-        sendFormattedMessage(sender, MiniMessage.get().parse(message));
+        sendFormattedMessage(sender, MiniMessage.miniMessage().deserialize(message));
     }
 
     default void sendMessage(CommandSender sender, String path) {

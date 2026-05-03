@@ -30,6 +30,7 @@ public class SimpleHomesAPI {
      * @param name The home name for lookup.
      * @return {@link HomesPlayer}s with a home matching the name.
      */
+    @SuppressWarnings("unused")
     public List<HomesPlayer> homeLookup(String name) {
         List<HomesPlayer> owners = new ArrayList<>();
         for (HomesPlayer homesPlayer : SimpleHomes.core().getUserMap().values()) {
@@ -45,6 +46,7 @@ public class SimpleHomesAPI {
      * @param player The player.
      * @return List of homes.
      */
+    @SuppressWarnings("unused")
     public List<Home> getHomes(Player player) {
         return SimpleHomes.core().getHomesPlayer(player.getUniqueId()).getHomes();
     }
@@ -54,6 +56,7 @@ public class SimpleHomesAPI {
      * @param player The offline player.
      * @return List of homes.
      */
+    @SuppressWarnings("unused")
     public List<Home> getHomes(OfflinePlayer player) {
         return SimpleHomes.core().getHomesPlayer(player.getUniqueId()).getHomes();
     }
@@ -64,6 +67,7 @@ public class SimpleHomesAPI {
      * @param name The name of the new home.
      * @param location The location of the new home.
      */
+    @SuppressWarnings("unused")
     public void createHome(Player player, String name, Location location) {
         SimpleHomes.core().getHomesPlayer(player.getUniqueId()).addHome(new Home(name, location));
     }

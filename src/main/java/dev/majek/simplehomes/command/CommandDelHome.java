@@ -22,7 +22,12 @@ import java.util.stream.Collectors;
 public class CommandDelHome implements TabExecutor {
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public boolean onCommand(
+        @NotNull CommandSender sender,
+        @NotNull Command command,
+        @NotNull String label,
+        @NotNull String @NotNull [] args
+    ) {
         // Console cannot delete homes
         if (!(sender instanceof Player)) {
             sendMessage(sender, "command.invalidSender");
@@ -96,7 +101,12 @@ public class CommandDelHome implements TabExecutor {
     }
 
     @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
+    public @Nullable List<String> onTabComplete(
+        @NotNull CommandSender sender,
+        @NotNull Command command,
+        @NotNull String alias,
+        @NotNull String @NotNull [] args
+    ) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             if (args.length == 1) {

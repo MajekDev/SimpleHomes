@@ -8,7 +8,6 @@ import dev.majek.simplehomes.util.TabExecutor;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -22,7 +21,12 @@ import java.util.List;
 public class CommandSetHome implements TabExecutor {
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public boolean onCommand(
+        @NotNull CommandSender sender,
+        @NotNull Command command,
+        @NotNull String label,
+        @NotNull String @NotNull [] args
+    ) {
         // Console cannot set homes
         if (!(sender instanceof Player)) {
             sendMessage(sender, "command.invalidSender");
@@ -82,7 +86,12 @@ public class CommandSetHome implements TabExecutor {
     }
 
     @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
+    public @Nullable List<String> onTabComplete(
+        @NotNull CommandSender sender,
+        @NotNull Command command,
+        @NotNull String alias,
+        @NotNull String @NotNull [] args
+    ) {
         return Collections.emptyList();
     }
 }

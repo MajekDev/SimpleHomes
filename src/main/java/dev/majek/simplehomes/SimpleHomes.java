@@ -63,7 +63,6 @@ public final class SimpleHomes extends JavaPlugin {
                 } catch (IOException | JsonParseException e) {
                     SimpleHomes.core().getLogger().severe("Critical error loading player data from "
                             + dataStorage.getFile().getName());
-                    e.printStackTrace();
                     continue;
                 }
                 addToUserMap(new HomesPlayer(dataStorage, fileContents));
@@ -114,18 +113,18 @@ public final class SimpleHomes extends JavaPlugin {
         try {
             ConfigUpdater.update(core, "config.yml", configFile, Collections.emptyList());
         } catch (IOException e) {
-            e.printStackTrace();
+            this.getLogger().severe("Failed to update config.yml");
         }
         reloadConfig();
 
         // Initialize lang config
-        YAMLConfig langConfig = new YAMLConfig(core, null, "lang.yml");
+        YAMLConfig langConfig = new YAMLConfig(core, "lang.yml");
         File langFile = new File(core.getDataFolder(), "lang.yml");
         langConfig.saveDefaultConfig();
         try {
             ConfigUpdater.update(core, "lang.yml", langFile, Collections.emptyList());
         } catch (IOException e) {
-            e.printStackTrace();
+            this.getLogger().severe("Failed to update lang.yml");
         }
         langConfig.reloadConfig();
         lang = langConfig.getConfig();
@@ -200,7 +199,7 @@ public final class SimpleHomes extends JavaPlugin {
      * @param location Teleport destination.
      */
     public void safeTeleportPlayer(final Player player, final Location location) {
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 140, 7));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 140, 7));
         player.teleport(location);
         player.setFallDistance(0);
         player.setVelocity(new Vector(0, 0.3, 0));

@@ -1,6 +1,7 @@
 package dev.majek.simplehomes.data;
 
 import com.google.gson.*;
+import dev.majek.simplehomes.SimpleHomes;
 
 import java.io.*;
 
@@ -37,7 +38,7 @@ public class JSONConfig {
             try {
                IGNORE_RESULT(this.configFile.createNewFile());
             } catch (IOException e) {
-                e.printStackTrace();
+                SimpleHomes.core().getLogger().info("Unable to create config file: " + this.name);
             }
             PrintWriter write = new PrintWriter(configFile);
             write.write("{ }");
@@ -81,6 +82,7 @@ public class JSONConfig {
     /**
      * This deletes the config file's directory and all it's contents.
      */
+    @SuppressWarnings("unused")
     public void deleteParentDir() {
         IGNORE_RESULT(this.getDirectory().delete());
     }
@@ -88,6 +90,7 @@ public class JSONConfig {
     /**
      * This deletes and recreates the file, wiping all its contents.
      */
+    @SuppressWarnings("unused")
     public void reset() {
         this.deleteFile();
         try {
@@ -98,13 +101,14 @@ public class JSONConfig {
             write.write(gson.toJson(je));
             write.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            SimpleHomes.core().getLogger().info("Unable to reset config file: " + this.name);
         }
     }
 
     /**
      * Wipe the config file's directory, including the file itself.
      */
+    @SuppressWarnings("unused")
     public void wipeDirectory() {
         IGNORE_RESULT(this.getDirectory().delete());
         IGNORE_RESULT(this.pluginDataFolder.mkdir());
@@ -118,6 +122,7 @@ public class JSONConfig {
      * @param name The sub directory's name.
      * @throws IOException If the entered string has a file extension or already exists.
      */
+    @SuppressWarnings("unused")
     public void createSubDirectory(String name) throws IOException {
         if (!pluginDataFolder.exists())
             throw new IOException("Data folder not found.");
@@ -161,6 +166,7 @@ public class JSONConfig {
         write.close();
     }
 
+    @SuppressWarnings("unused")
     public void removeFromJsonObject(String key) throws IOException, JsonParseException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonObject obj = (JsonObject) JsonParser.parseReader(new FileReader(configFile));

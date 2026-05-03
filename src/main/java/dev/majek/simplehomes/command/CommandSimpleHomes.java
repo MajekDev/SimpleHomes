@@ -17,7 +17,12 @@ import java.util.List;
 public class CommandSimpleHomes implements TabExecutor {
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public boolean onCommand(
+        @NotNull CommandSender sender,
+        @NotNull Command command,
+        @NotNull String label,
+        @NotNull String @NotNull [] args
+    ) {
         if (args.length == 1) {
             if (args[0].equalsIgnoreCase("help")) {
                 for (String helpMsg : SimpleHomes.core().getLang().getStringList("command.help.help"))
@@ -35,13 +40,18 @@ public class CommandSimpleHomes implements TabExecutor {
             }
         } else {
             for (String helpMsg : SimpleHomes.core().getLang().getStringList("command.help.version"))
-                sendFormattedMessage(sender, helpMsg.replace("%version%", SimpleHomes.core().getDescription().getVersion()));
+                sendFormattedMessage(sender, helpMsg.replace("%version%", SimpleHomes.core().getPluginMeta().getVersion()));
         }
         return true;
     }
 
     @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
+    public @Nullable List<String> onTabComplete(
+        @NotNull CommandSender sender,
+        @NotNull Command command,
+        @NotNull String alias,
+        @NotNull String @NotNull [] args
+    ) {
         return TabCompleterBase.filterStartingWith(args[0], Arrays.asList("help", "reload"));
     }
 }

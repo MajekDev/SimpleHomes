@@ -31,6 +31,7 @@ public abstract class TabCompleterBase implements TabCompleter {
      * @param args  the arguments.
      * @return the result of joining the argument after the given index with the given delimiter.
      */
+    @SuppressWarnings("unused")
     public static String joinArgsBeyond(int index, String delim, String[] args) {
         ++index;
         String[] data = new String[args.length - index];

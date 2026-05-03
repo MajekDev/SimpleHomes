@@ -21,7 +21,7 @@ public class PlayerRespawn implements Listener {
             Player player = event.getPlayer();
             HomesPlayer homesPlayer = SimpleHomes.core().getHomesPlayer(player.getUniqueId());
             event.setRespawnLocation(homesPlayer.getMainHome().location());
-            player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 140, 7));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 140, 7));
             player.setFallDistance(0);
             player.setVelocity(new Vector(0, 0.3, 0));
         }
