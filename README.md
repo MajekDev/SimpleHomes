@@ -1,7 +1,7 @@
 <img align="right" src="https://github.com/MajekDev/SimpleHomes/blob/main/img/logo.png?raw=true" height="200" width="220" alt="SimpleHomes logo">
 <h1>SimpleHomes by Majekdor</h1>
 
-SimpleHomes is a stable base homes plugin. It offers all the essential features necessary in a home plugin and some additional useful permissions.
+SimpleHomes is a stable base homes plugin. It offers all the essential features necessary in a home plugin and some additional useful permissions. Advanced features such as moving homes, renaming homes, or sharing homes with other players are not present in SimpleHomes. I have plans for a more advanced homes plugin that will include those. Stay tuned! SimpleHomes is just meant to be as advertised: simple and easy to use.
 
 <img src="https://github.com/MajekDev/SimpleHomes/blob/main/img/features.png?raw=true" alt="Commands">
 
