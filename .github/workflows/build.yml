@@ -16,10 +16,10 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: setup JDK 25
-      uses: actions/setup-java@v2
+      uses: actions/setup-java@v5
       with:
         java-version: '25'
-        distribution: 'corretto'
+        distribution: 'temurin'
         cache: maven
 
     - name: cache maven packages
